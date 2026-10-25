@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sdc-mapper"
-version = "4.2.1"
+version = "4.3.0"
 description = "The shared core of the Semantic Data Charter's Governed Data Record mappers: validate, resolve, map, and report every value; MCP server included."
 readme = "README.md"
 requires-python = ">=3.12"

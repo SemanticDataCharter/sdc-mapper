@@ -40,7 +40,9 @@ class Rule:
     units: dict | None = None
     also: list[dict] = field(default_factory=list)
     on_miss: str = "fail"
-    prefix: str | None = None
+    prefix: str | None = None      # binding: the code system (the 4.1.0 name; `system` since 4.3.0)
+    system: str | None = None      # binding, link: the code system the code must be in
+    predicates: list[str] = field(default_factory=list)   # link: the links to read, in order
     order: int | None = None
 
     def applies_within(self, ancestors: list[str]) -> bool:

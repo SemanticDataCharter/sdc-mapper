@@ -15,6 +15,7 @@ from dataclasses import dataclass, field
 from datetime import date, datetime, time
 from decimal import Decimal
 
+from .codes import CONCEPT_LINKS, bound_code, linked_code
 from .mapping import Mapping, MappingError, Rule
 from .resolve import ResolvedRecord, ResolvedValue
 
@@ -146,6 +147,17 @@ def _transform(rule, value: ResolvedValue, mapping: Mapping) -> str | None:
     transform = get("transform")
     if transform == "constant":
         return get("value")
+    if transform == "link":
+        # the code of the concept the component links to: what the value is a value of, so written beside an
+        # Exceptional Value too
+        system = get("system")
+        ref = linked_code(value, system, tuple(get("predicates") or CONCEPT_LINKS))
+        if ref:
+            return ref.code
+        if (get("on_miss") or "fail") == "omit":
+            raise _Miss(f"{value.label} links to no code" + (f" in {system}" if system else ""))
+        raise MappingError(f"mapping {mapping.id}: {value.label} ({value.ct_id}) links to no code"
+                           + (f" in {system}" if system else ""))
     if value.exceptional:
         return None                                  # an Exceptional Value's value is never written
     if transform == "copy":
@@ -153,15 +165,15 @@ def _transform(rule, value: ResolvedValue, mapping: Mapping) -> str | None:
     if transform == "format":
         return _format(value, get("format") or "")
     if transform == "binding":
-        # the code the model binds the value to: the fragment of the IRI its enumeration value is defined by
-        prefix = get("prefix") or ""
-        bound = value.code.defined_by if value.code else None
-        if bound and bound.startswith(prefix) and "#" in bound:
-            return bound.rsplit("#", 1)[1]
+        # the code the model defines the enumerated value by (any IRI form `codes` reads), in `system` when given
+        system = get("system") or get("prefix")
+        ref = bound_code(value, system)
+        if ref:
+            return ref.code
         if (get("on_miss") or "fail") == "omit":
-            raise _Miss(f"{value.label} is not bound under {prefix}")
+            raise _Miss(f"{value.label} is not bound to a code" + (f" in {system}" if system else ""))
         raise MappingError(f"mapping {mapping.id}: {value.label} ({value.ct_id}) holds {text_of(value)!r}, which the model "
-                           f"does not bind to a code under {prefix}")
+                           "does not bind to a code" + (f" in {system}" if system else ""))
     if transform == "code":
         raw = text_of(value)
         if raw is None:
@@ -223,3 +235,13 @@ def place(record: ResolvedRecord, mapping: Mapping) -> tuple[list[Placement], li
                 p.units_text = symbol
         placements.append(p)
     return placements, list(clusters.values())
+
+
+def join_depth(steps) -> int:
+    """Where a write's deepest '=name' step is (-1 for none). A writer resolves writes with '=' steps after every other
+    value, the shallowest first, so a join through an element another join makes finds it made."""
+    return max((i for i, (_, key) in enumerate(steps) if key == JOIN), default=-1)
+
+
+#: Transforms whose text is the model's own (a lookup, in the report), not the mapping's choice.
+LOOKUP_TRANSFORMS = frozenset({"binding", "link"})

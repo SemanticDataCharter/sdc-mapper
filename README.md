@@ -11,7 +11,8 @@ target could say it too. Every call is appended to a hash-chained log that holds
 Each target format is its own package (`sdc-gdr2ubl`, `sdc-gdr2edifact`, `sdc-gdr2omop`, ...) registered under the
 entry-point group `sdc_mapper.targets`. Outbound only. Apache 2.0.
 
-**Status:** 4.2.0. The first target mapper, `sdc-gdr2ubl` (OASIS UBL 2.3), is in development.
+**Status:** 4.3.0. Five target mappers are released: `sdc-gdr2ubl` (OASIS UBL 2.3), `sdc-gdr2edifact` (UN/EDIFACT
+D.24A), `sdc-gdr2omop` (OMOP CDM 5.4), `sdc-gdr2fhir` (HL7 FHIR R4) and `sdc-gdr2hl7v2` (HL7 v2.5.1).
 
 ## Use
 
@@ -65,10 +66,29 @@ rules:
     reason: the target profile carries no contact
 ```
 
-Transforms: `copy`, `code` (a table), `format`, `constant`, `binding` (the code the model binds a value to), `omit`;
-clusters `group` or `omit`. Steps: `..` up, `.` none, `+name` an element of the value's own, `=name` the element of that
-name the parent already has. `within:` restricts a rule to a context. A value no rule reaches is reported, never dropped. `place(record, mapping)` turns a record and its
-mapping into placements a mapper writes from.
+Transforms: `copy`, `code` (a table), `format`, `constant`, `binding` (the code the model defines an enumerated value
+by), `link` (the code of the concept the component links to), `omit`; clusters `group` or `omit`. `binding` and `link`
+take a `system` (`http://loinc.org`, `http://snomed.info/sct`, a code list's IRI); their text is the model's, so a mapper
+reports it as a lookup (`LOOKUP_TRANSFORMS`). Steps: `..` up, `.` none, `+name` an element of the value's own, `=name`
+the element of that name the parent already has. `within:` restricts a rule to a context. A value no rule reaches is
+reported, never dropped. `place(record, mapping)` turns a record and its mapping into placements a mapper writes from.
+
+## Codes the model names
+
+`sdc_mapper.codes` reads the IRIs the component libraries use for a concept as a code system and a code: LOINC codes
+and answers, SNOMED CT, NCI Thesaurus, and any code list whose IRI ends in `#code` (UBL's, HL7's). A code system is
+named by the IRI FHIR uses for it; a mapper turns that into its own name for the system (OMOP's `vocabulary_id`, HL7
+v2's coding system). `bound_code(value)` is the code an enumerated value is defined by, `linked_code(value)` the code
+of the concept its component links to (`skos:exactMatch`, then `dcterms:subject`), and `model_codes(value)` every code
+the model names for it: a target code that is one of these came from the model.
+
+## Writing to a target
+
+`place()` gives each value its target steps. Steps written `=name` join an element made by another value, so a writer
+holds those writes back until every other value is written, then writes them shallowest first: sort them by
+`join_depth(steps)`. A row-oriented target (a set of tables, as OMOP's) can treat each step as a table or a column,
+`+TABLE` as one new row per value, and keep the record's own row (its person, its document) under a name of its own;
+`sdc-gdr2omop` does so with a `RECORD` table.
 
 ## Writing a mapper
 
