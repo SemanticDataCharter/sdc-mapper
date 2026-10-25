@@ -11,7 +11,7 @@ target could say it too. Every call is appended to a hash-chained log that holds
 Each target format is its own package (`sdc-gdr2ubl`, `sdc-gdr2edifact`, `sdc-gdr2omop`, ...) registered under the
 entry-point group `sdc_mapper.targets`. Outbound only. Apache 2.0.
 
-**Status:** 4.3.0. Five target mappers are released: `sdc-gdr2ubl` (OASIS UBL 2.3), `sdc-gdr2edifact` (UN/EDIFACT
+**Status:** 4.3.1. Five target mappers are released: `sdc-gdr2ubl` (OASIS UBL 2.3), `sdc-gdr2edifact` (UN/EDIFACT
 D.24A), `sdc-gdr2omop` (OMOP CDM 5.4), `sdc-gdr2fhir` (HL7 FHIR R4) and `sdc-gdr2hl7v2` (HL7 v2.5.1).
 
 ## Use

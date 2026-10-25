@@ -82,3 +82,26 @@ def test_join_depth_orders_deferred_writes():
     a, b, c = ("x:A", ()), ("x:B", JOIN), ("x:C", JOIN)
     assert join_depth([a]) == -1 and join_depth([a, b]) == 1 and join_depth([b, a, c]) == 2
     assert LOOKUP_TRANSFORMS == {"binding", "link"}
+
+
+@pytest.mark.parametrize("iri", ["https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/DEMO_J.htm#SEQN",
+                                 "http://www.w3.org/ns/prov#Entity", "http://www.w3.org/2000/01/rdf-schema#label"])
+def test_a_term_or_a_page_anchor_is_no_concept_code(iri, tmp_path):
+    """4.3.1: a `#fragment` in a concept link is a vocabulary term or an anchor on a page, not a code."""
+    assert code_of(iri, code_lists=False) is None
+    rs = resolved()
+    v = _value_with(rs, links={"http://www.w3.org/2004/02/skos/core#exactMatch": [iri, "https://loinc.org/8480-6/"]})
+    rs.values[v.position] = v
+    assert model_codes(v) == {"8480-6"}, "the link to LOINC is a code; the fragment is not"
+    p = next(p for p in place(rs, mapping(tmp_path, [{"component": v.ct_id, "to": "/x:Code", "transform": "link"}]))[0]
+             if p.value.position == v.position)
+    assert p.text == "8480-6"
+    only = _value_with(rs, links={"http://www.w3.org/2004/02/skos/core#exactMatch": [iri]})
+    rs.values[only.position] = only
+    with pytest.raises(MappingError, match="links to no code"):
+        place(rs, mapping(tmp_path, [{"component": only.ct_id, "to": "/x:Code", "transform": "link"}]))
+
+
+def test_a_code_list_entry_still_binds_an_enumerated_value():
+    assert code_of(f"{UBL_LIST}#2") == CodeRef(UBL_LIST, "2")
+    assert code_of(f"{UBL_LIST}#2", code_lists=False) is None
