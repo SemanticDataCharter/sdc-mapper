@@ -3,6 +3,10 @@
 Versions carry the leading 4 of the SDC4 reference model: an addition is a minor version, a fix a patch, and the
 major changes only when the reference model does.
 
+## 4.2.1 (2026-10-25)
+
+Rebuilt with pip 26.2.2 pinned by hash in CI and the release job (the eMudhra/emSign CA compromise: pip before 26.2.2 trusts the compromised root through its vendored certifi). No change to the package.
+
 ## 4.2.0 (2026-10-25)
 
 - **`=name` steps.** A value can be written into the element a nested cluster makes: the line's answer in a UBL order

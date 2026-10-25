@@ -19,7 +19,7 @@ from .placement import JOIN, ClusterPlacement, Extra, Placement, place, text_of
 from .report import CoverageReport, IncompleteMapping, build_report
 from .resolve import Exceptional, ResolvedRecord, ResolvedValue, Units, resolve
 
-__version__ = "4.2.0"
+__version__ = "4.2.1"
 __all__ = [
     "Engine", "CallResult", "Gate", "GateResult", "Recovery", "Log", "entry_hash", "Mapping", "MappingError", "Rule",
     "load_mapping", "place", "Placement", "ClusterPlacement", "Extra", "JOIN", "text_of", "CoverageReport", "IncompleteMapping", "build_report", "ResolvedRecord", "ResolvedValue",
