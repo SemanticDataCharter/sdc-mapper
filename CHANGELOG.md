@@ -9,6 +9,9 @@ major changes only when the reference model does.
   response goes in the line item's `LineStatusCode`, though the answer belongs to the line and the line item is its
   own cluster. The step joins the element of that name the parent already has, or makes one when there is none;
   `place()` marks it with `JOIN`, and the writer resolves it after placing every other value.
+- **`order:` on a cluster rule**, and `Mapping.cluster_order`: the rank of the elements made under a cluster among
+  same-named elements made under its siblings. A record holds wrapper clusters in its model's order (Line 1, Line 10,
+  Line 2, ...); a mapping that declares `order` lets the writer put the lines in the target's.
 
 ## 4.1.1 (2026-10-25)
 

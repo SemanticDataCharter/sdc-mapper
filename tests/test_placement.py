@@ -202,3 +202,9 @@ def test_an_equals_step_is_marked_for_the_writer_to_join(tmp_path):
     ps, _ = place(resolved(), mapping(tmp_path, rules))
     p = next(p for p in by_label(ps, "Endpoint ID") if p.steps)
     assert p.steps[-2] == ("cac:PartyName", JOIN)
+
+
+def test_cluster_order_is_declared_on_cluster_rules(tmp_path):
+    rules = PARTY_RULES[:2] + [{"cluster": ct("Accounting Supplier Party"), "to": "x", "order": 2,
+                                "within": [ct("Credit Note")]}]
+    assert mapping(tmp_path, rules).cluster_order == {ct("Accounting Supplier Party"): 2}

@@ -41,6 +41,7 @@ class Rule:
     also: list[dict] = field(default_factory=list)
     on_miss: str = "fail"
     prefix: str | None = None
+    order: int | None = None
 
     def applies_within(self, ancestors: list[str]) -> bool:
         """`within` names clusters that must enclose the target, outermost first; each must appear among the
@@ -80,6 +81,12 @@ class Mapping:
     def cluster_rule(self, ct_id: str, ancestors: list[str]) -> Rule | None:
         found = [r for r in self.rules if r.cluster == ct_id and r.applies_within(ancestors)]
         return max(found, key=lambda r: len(r.within)) if found else None
+
+    @property
+    def cluster_order(self) -> dict[str, int]:
+        """The declared order of clusters, by identifier: for a writer to rank same-named elements made under
+        sibling clusters (lines held in wrapper clusters) where the record's own order is not the target's."""
+        return {r.cluster: r.order for r in self.rules if r.cluster and r.order is not None}
 
     def check(self, ct_id: str, schema_sha256: str, target_name: str, target_version: str) -> None:
         """Refuse a mapping for another model, another schema version or another target."""
