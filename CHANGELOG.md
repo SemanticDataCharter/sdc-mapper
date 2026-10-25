@@ -3,7 +3,19 @@
 Versions carry the leading 4 of the SDC4 reference model: an addition is a minor version, a fix a patch, and the
 major changes only when the reference model does.
 
-## 4.3.0 (unreleased)
+## 4.3.1 (2026-10-25)
+
+- **Concept links read only a code system's own forms.** In 4.3.0 `code_of` read any IRI ending in `#something` as an
+  entry in a code list, wherever it appeared, so a component's link to a vocabulary term (`prov#Entity`) or to an
+  anchor on a page about a variable (`DEMO_J.htm#SEQN`) counted as a code: `link` without a `system` could write
+  `SEQN`, and `model_codes` could count it. The models carry 157 such IRIs. Now `code_of(iri, code_lists=False)` reads
+  only LOINC, SNOMED CT and NCI Thesaurus, and `linked_code`, `link` and the link half of `model_codes` use it. An
+  enumerated value's binding (`bound_code`, `binding`) still reads a code list's `#code`, as UBL's and HL7's lists
+  need, and `code_of`'s default is unchanged.
+- No change to any mapper's output: all 1,786 sample records of the five released mappers map to the same files and
+  reports, byte for byte (4,535 files), and every mapper's suite passes.
+
+## 4.3.0 (2026-10-25)
 
 What the three health mappers each did for themselves, in the core.
 

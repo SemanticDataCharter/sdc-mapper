@@ -39,8 +39,14 @@ class CodeRef:
     code: str
 
 
-def code_of(iri: str | None) -> CodeRef | None:
-    """The code an IRI names, or None (an IRI that names a whole code system, or a page about a variable)."""
+def code_of(iri: str | None, code_lists: bool = True) -> CodeRef | None:
+    """The code an IRI names, or None (an IRI that names a whole code system, or a page about a variable).
+
+    The code systems' own forms (LOINC, SNOMED CT, NCI Thesaurus) always read as codes. An IRI ending in `#code` reads
+    as an entry in a code list only with `code_lists`: that is how a model binds an enumerated value to a list (UBL's,
+    HL7's), but the same form also names a vocabulary term (`prov#Entity`) or an anchor on a page about a variable
+    (`DEMO_J.htm#SEQN`), which are not codes. 4.3.1: concept links read without it.
+    """
     if not iri:
         return None
     iri = iri.strip()
@@ -48,9 +54,10 @@ def code_of(iri: str | None) -> CodeRef | None:
         m = form.match(iri)
         if m:
             return CodeRef(system, m.group(1))
-    m = _FRAGMENT.match(iri)
-    if m:
-        return CodeRef(m.group(1), m.group(2))
+    if code_lists:
+        m = _FRAGMENT.match(iri)
+        if m:
+            return CodeRef(m.group(1), m.group(2))
     return None
 
 
@@ -59,17 +66,19 @@ def _in(ref: CodeRef | None, system: str | None) -> bool:
 
 
 def bound_code(value, system: str | None = None) -> CodeRef | None:
-    """The code the model defines an enumerated value by, if it is one (in `system`, when given)."""
+    """The code the model defines an enumerated value by, if it is one (in `system`, when given): a code system's
+    concept, or an entry in a code list."""
     ref = code_of(value.code.defined_by) if getattr(value, "code", None) else None
     return ref if _in(ref, system) else None
 
 
 def linked_code(value, system: str | None = None, predicates=CONCEPT_LINKS) -> CodeRef | None:
-    """The first code the component links to (in `system`, when given), by the predicates in order."""
+    """The first code the component links to (in `system`, when given), by the predicates in order: a code system's
+    concept only, never a `#fragment` (a link names a concept; a fragment in a link is a term or a page anchor)."""
     links = getattr(value, "links", None) or {}
     for predicate in predicates:
         for iri in links.get(predicate, []):
-            ref = code_of(iri)
+            ref = code_of(iri, code_lists=False)
             if _in(ref, system):
                 return ref
     return None
@@ -78,5 +87,6 @@ def linked_code(value, system: str | None = None, predicates=CONCEPT_LINKS) -> C
 def model_codes(value) -> set[str]:
     """Every code the model names for a value: its enumeration value's definition and the component's concept links.
     A target code that is one of these came from the model."""
-    refs = [bound_code(value)] + [code_of(i) for p in CONCEPT_LINKS for i in (getattr(value, "links", None) or {}).get(p, [])]
+    refs = [bound_code(value)] + [code_of(i, code_lists=False)
+                                  for p in CONCEPT_LINKS for i in (getattr(value, "links", None) or {}).get(p, [])]
     return {r.code for r in refs if r}
