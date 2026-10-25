@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://semanticdatacharter.com/schemas/sdc-mapper/mapping-4.json",
   "title": "sdc-mapper mapping file",
-  "description": "How one model's components reach one target where the model alone does not settle it. Bound to one model schema version and one target version; immutable once published. No expressions or code. Since 4.1.0, rules may map a cluster to a target element (with a `within` context for a cluster used in several places), target paths are relative to the enclosing mapped cluster unless they start with '/', a final '@name' step places an attribute, and a `units` sub-rule places a quantity's unit. A '..' step goes up from the enclosing mapped cluster's element, a '.' step is no step, and a step prefixed '+' makes a new element for each value rather than sharing one by name. `also` writes the same value to further places; `on_miss: omit` leaves a code-table miss unwritten instead of failing. The `binding` transform writes the code the model binds a value to (the fragment of the IRI its enumeration value is defined by, under `prefix`): the model, not the mapping, supplies the value. A step written '=name' joins the element of that name its parent already has (one a nested cluster makes), or makes one when there is none. A cluster rule's `order` ranks the elements made under it among same-named elements made under its sibling clusters.",
+  "description": "How one model's components reach one target where the model alone does not settle it. Bound to one model schema version and one target version; immutable once published. No expressions or code. Since 4.1.0, rules may map a cluster to a target element (with a `within` context for a cluster used in several places), target paths are relative to the enclosing mapped cluster unless they start with '/', a final '@name' step places an attribute, and a `units` sub-rule places a quantity's unit. A '..' step goes up from the enclosing mapped cluster's element, a '.' step is no step, and a step prefixed '+' makes a new element for each value rather than sharing one by name. `also` writes the same value to further places; `on_miss: omit` leaves a code-table miss unwritten instead of failing. The `binding` transform writes the code the model binds a value to (the fragment of the IRI its enumeration value is defined by, under `prefix`): the model, not the mapping, supplies the value. A step written '=name' joins the element of that name its parent already has (one a nested cluster makes), or makes one when there is none. A cluster rule's `order` ranks the elements made under it among same-named elements made under its sibling clusters. Since 4.3.0, `binding` reads every IRI form the component libraries use (LOINC, SNOMED CT, NCIt, a code list's fragment) and takes the code system as `system`; `link` writes the code of the concept the component links to (skos:exactMatch, then dcterms:subject, or `predicates`).",
   "type": "object",
   "required": [
     "mapping",
@@ -195,7 +195,8 @@
             "constant",
             "omit",
             "group",
-            "binding"
+            "binding",
+            "link"
           ]
         },
         "table": {
@@ -281,7 +282,8 @@
                   "code",
                   "format",
                   "constant",
-                  "binding"
+                  "binding",
+                  "link"
                 ]
               },
               "table": {
@@ -305,6 +307,18 @@
               },
               "prefix": {
                 "type": "string"
+              },
+              "system": {
+                "type": "string",
+                "description": "binding, link: the code system the code must be in, by its IRI (http://loinc.org, http://snomed.info/sct, a code list's IRI)."
+              },
+              "predicates": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "description": "link: the links to read, in order (default skos:exactMatch, dcterms:subject)."
               }
             },
             "allOf": [
@@ -349,20 +363,6 @@
                     "value"
                   ]
                 }
-              },
-              {
-                "if": {
-                  "properties": {
-                    "transform": {
-                      "const": "binding"
-                    }
-                  }
-                },
-                "then": {
-                  "required": [
-                    "prefix"
-                  ]
-                }
               }
             ]
           }
@@ -374,6 +374,18 @@
         "order": {
           "type": "integer",
           "description": "For a cluster rule: where the elements made under this cluster stand among elements of the same name made under its siblings (Invoice Line 3 has order 3), where the record's own order is not the target's."
+        },
+        "system": {
+          "type": "string",
+          "description": "binding, link: the code system the code must be in, by its IRI (http://loinc.org, http://snomed.info/sct, a code list's IRI)."
+        },
+        "predicates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "link: the links to read, in order (default skos:exactMatch, dcterms:subject)."
         }
       },
       "allOf": [
@@ -405,7 +417,8 @@
                   "format",
                   "constant",
                   "omit",
-                  "binding"
+                  "binding",
+                  "link"
                 ]
               }
             }
@@ -476,23 +489,6 @@
           "then": {
             "required": [
               "reason"
-            ]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "transform": {
-                "const": "binding"
-              }
-            },
-            "required": [
-              "transform"
-            ]
-          },
-          "then": {
-            "required": [
-              "prefix"
             ]
           }
         }

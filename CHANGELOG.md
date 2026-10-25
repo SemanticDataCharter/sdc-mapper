@@ -3,6 +3,23 @@
 Versions carry the leading 4 of the SDC4 reference model: an addition is a minor version, a fix a patch, and the
 major changes only when the reference model does.
 
+## 4.3.0 (unreleased)
+
+What the three health mappers each did for themselves, in the core.
+
+- **`sdc_mapper.codes`**: `code_of(iri)` reads the IRI forms the component libraries use for a concept as a code
+  system and a code (LOINC codes and answers, with or without `/rdf/`; SNOMED CT under `/id/` or `/sct/`; NCI
+  Thesaurus; any code list's `#code`); `bound_code`, `linked_code` and `model_codes` read them off a resolved value.
+- **`binding`** reads every one of those forms (4.2 read only `#code`) and takes the code system as `system`; `prefix`
+  still works.
+- **`link`**: a transform that writes the code of the concept the component links to (`skos:exactMatch`, then
+  `dcterms:subject`, or `predicates`), in a `system`. The concept is known when the value is not, so it is written
+  beside an Exceptional Value too (an HL7 v2 OBX-3, a FHIR `Observation.code`).
+- **`LOOKUP_TRANSFORMS`**: `binding` and `link`, whose text is the model's: a mapper reports such a value as a lookup.
+- **`join_depth(steps)`**: the order a writer resolves `=name` writes in, shallowest first, so a join through an element
+  another join makes finds it made.
+- README: the codes, and writing to a target, including a row-oriented one.
+
 ## 4.2.1 (2026-10-25)
 
 Rebuilt with pip 26.2.2 pinned by hash in CI and the release job (the eMudhra/emSign CA compromise: pip before 26.2.2 trusts the compromised root through its vendored certifi). No change to the package.

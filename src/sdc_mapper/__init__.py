@@ -15,14 +15,16 @@ from .engine import ERROR, CallResult, Engine
 from .gate import REFUSED, VALID, VALID_WITH_EV, Gate, GateResult, Recovery
 from .log import Log, entry_hash
 from .mapping import Mapping, MappingError, Rule, load_mapping
-from .placement import JOIN, ClusterPlacement, Extra, Placement, place, text_of
+from .codes import CONCEPT_LINKS, EXACT_MATCH, LOINC, NCIT, SNOMED_CT, SUBJECT, CodeRef, bound_code, code_of, linked_code, model_codes
+from .placement import JOIN, LOOKUP_TRANSFORMS, ClusterPlacement, Extra, Placement, join_depth, place, text_of
 from .report import CoverageReport, IncompleteMapping, build_report
 from .resolve import Exceptional, ResolvedRecord, ResolvedValue, Units, resolve
 
-__version__ = "4.2.1"
+__version__ = "4.3.0"
 __all__ = [
     "Engine", "CallResult", "Gate", "GateResult", "Recovery", "Log", "entry_hash", "Mapping", "MappingError", "Rule",
-    "load_mapping", "place", "Placement", "ClusterPlacement", "Extra", "JOIN", "text_of", "CoverageReport", "IncompleteMapping", "build_report", "ResolvedRecord", "ResolvedValue",
+    "load_mapping", "place", "Placement", "ClusterPlacement", "Extra", "JOIN", "join_depth", "LOOKUP_TRANSFORMS", "CodeRef", "code_of",
+    "bound_code", "linked_code", "model_codes", "CONCEPT_LINKS", "EXACT_MATCH", "SUBJECT", "LOINC", "SNOMED_CT", "NCIT", "text_of", "CoverageReport", "IncompleteMapping", "build_report", "ResolvedRecord", "ResolvedValue",
     "Exceptional", "Units", "resolve", "Mapper", "MapResult", "ValueOutcome", "EVRule", "installed_mappers",
     "VALID", "VALID_WITH_EV", "REFUSED", "ERROR", "LOOKUP", "DECLARED", "CARRIED", "NOT_REPRESENTABLE", "VALUE_CLASSES",
     "PRESERVED", "DEGRADED", "EV_CARRIED", "LOST", "EV_CLASSES", "ENTRY_POINT_GROUP", "__version__",
