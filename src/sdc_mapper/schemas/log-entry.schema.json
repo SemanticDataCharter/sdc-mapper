@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semanticdatacharter.com/schemas/sdc-mapper/log-entry-1.json",
+  "title": "sdc-mapper log entry",
+  "description": "One call: its outcome, its anchors (SHA-256 of the record, the model schema, the mapping file and each output), its class counts, and the hash of the entry before it. No values and no failure reasons.",
+  "type": "object",
+  "required": ["log_version", "time", "caller", "record_sha256", "mapper", "target", "mapping", "outcome", "errors", "previous", "hash"],
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "counts": {"type": "object", "additionalProperties": {"type": ["integer", "object"]}}
+  },
+  "properties": {
+    "log_version": {"const": 1},
+    "time": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}Z$"},
+    "caller": {"type": "string"},
+    "record_sha256": {"$ref": "#/$defs/sha256"},
+    "record": {"type": "object", "required": ["instance_id"], "additionalProperties": false,
+               "properties": {"instance_id": {"type": "string"}, "instance_version": {"type": "string"}}},
+    "model": {"type": "object", "required": ["ct_id", "schema_sha256"], "additionalProperties": false,
+              "properties": {"ct_id": {"type": "string"}, "schema_sha256": {"$ref": "#/$defs/sha256"}}},
+    "mapping": {"type": ["object", "null"], "required": ["id", "version", "sha256"], "additionalProperties": false,
+                "properties": {"id": {"type": "string"}, "version": {"type": "string"}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "mapper": {"type": "object", "required": ["package", "version", "name"], "additionalProperties": false,
+               "properties": {"package": {"type": "string"}, "version": {"type": "string"}, "name": {"type": "string"}}},
+    "target": {"type": "object", "required": ["name", "version"], "additionalProperties": false,
+               "properties": {"name": {"type": "string"}, "version": {"type": "string"}}},
+    "outcome": {"enum": ["valid", "valid_with_ev", "refused", "error"]},
+    "counts": {"$ref": "#/$defs/counts"},
+    "exceptional": {"type": "array", "items": {"type": "object", "required": ["position", "ct_id", "code", "origin", "class"],
+                    "additionalProperties": false,
+                    "properties": {"position": {"type": "integer"}, "ct_id": {"type": "string"},
+                                   "code": {"enum": ["INV", "OTH", "UNC", "NI", "NA", "UNK", "ASKU", "ASKR", "NASK", "NAV", "MSK", "DER", "PINF", "NINF", "TRC", "QS"]},
+                                   "origin": {"enum": ["source", "recovery"]},
+                                   "class": {"enum": ["preserved", "degraded", "carried", "lost"]}}}},
+    "outputs": {"type": "object", "additionalProperties": {"$ref": "#/$defs/sha256"}},
+    "errors": {"type": "array", "items": {"type": "object", "required": ["kind", "path"], "additionalProperties": false,
+               "properties": {"kind": {"type": "string"}, "path": {"type": "string"}}}},
+    "previous": {"$ref": "#/$defs/sha256"},
+    "hash": {"$ref": "#/$defs/sha256"}
+  }
+}

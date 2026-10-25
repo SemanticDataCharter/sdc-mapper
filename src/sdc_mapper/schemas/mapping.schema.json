@@ -1,0 +1,508 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://semanticdatacharter.com/schemas/sdc-mapper/mapping-4.json",
+  "title": "sdc-mapper mapping file",
+  "description": "How one model's components reach one target where the model alone does not settle it. Bound to one model schema version and one target version; immutable once published. No expressions or code. Since 4.1.0, rules may map a cluster to a target element (with a `within` context for a cluster used in several places), target paths are relative to the enclosing mapped cluster unless they start with '/', a final '@name' step places an attribute, and a `units` sub-rule places a quantity's unit. A '..' step goes up from the enclosing mapped cluster's element, a '.' step is no step, and a step prefixed '+' makes a new element for each value rather than sharing one by name. `also` writes the same value to further places; `on_miss: omit` leaves a code-table miss unwritten instead of failing. The `binding` transform writes the code the model binds a value to (the fragment of the IRI its enumeration value is defined by, under `prefix`): the model, not the mapping, supplies the value.",
+  "type": "object",
+  "required": [
+    "mapping",
+    "model",
+    "target"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "mapping": {
+      "type": "object",
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "version": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "author": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "required": [
+        "ct_id",
+        "schema_sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ct_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]{24,32}$"
+        },
+        "schema_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "name",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "profile_of": {
+      "description": "A base mapping this profile is layered on, by the base file's SHA-256.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "carry_rejected": {
+      "description": "Write a value rejected by recovery as text, marked as rejected, where the target has a note field. Off by default.",
+      "type": "boolean",
+      "default": false
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "exceptional_values": {
+      "description": "Overrides of the mapper's Exceptional Value table, by ISO 21090 code.",
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "INV",
+          "OTH",
+          "UNC",
+          "NI",
+          "NA",
+          "UNK",
+          "ASKU",
+          "ASKR",
+          "NASK",
+          "NAV",
+          "MSK",
+          "DER",
+          "PINF",
+          "NINF",
+          "TRC",
+          "QS"
+        ]
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "class"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "class": {
+            "enum": [
+              "preserved",
+              "degraded",
+              "carried",
+              "lost"
+            ]
+          },
+          "target_code": {
+            "type": "string"
+          },
+          "merged_with": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "to"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "component"
+          ]
+        },
+        {
+          "required": [
+            "sdc_type"
+          ]
+        },
+        {
+          "required": [
+            "cluster"
+          ]
+        }
+      ],
+      "properties": {
+        "component": {
+          "$ref": "#/$defs/ct_id"
+        },
+        "sdc_type": {
+          "type": "string",
+          "pattern": "^Xd[A-Za-z]+$"
+        },
+        "cluster": {
+          "$ref": "#/$defs/ct_id"
+        },
+        "within": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ct_id"
+          },
+          "minItems": 1,
+          "description": "Ancestor clusters that must enclose the component or cluster, outermost first, for the rule to apply."
+        },
+        "to": {
+          "$ref": "#/$defs/path"
+        },
+        "transform": {
+          "enum": [
+            "copy",
+            "code",
+            "format",
+            "constant",
+            "omit",
+            "group",
+            "binding"
+          ]
+        },
+        "table": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "format": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Constant attributes written on the value's (or cluster's) element, by name.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "units": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "to"
+          ],
+          "properties": {
+            "to": {
+              "type": "string",
+              "pattern": "^@[^/@\\s]+$"
+            },
+            "transform": {
+              "enum": [
+                "copy",
+                "code"
+              ]
+            },
+            "table": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "on_miss": {
+              "enum": [
+                "fail",
+                "omit"
+              ],
+              "default": "fail"
+            }
+          }
+        },
+        "on_miss": {
+          "enum": [
+            "fail",
+            "omit"
+          ],
+          "default": "fail",
+          "description": "What a code table does with a value it does not list."
+        },
+        "also": {
+          "type": "array",
+          "minItems": 1,
+          "description": "The same value written to further places, relative to the same enclosing element and sharing the value's elements.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "to",
+              "transform"
+            ],
+            "properties": {
+              "to": {
+                "$ref": "#/$defs/path"
+              },
+              "transform": {
+                "enum": [
+                  "copy",
+                  "code",
+                  "format",
+                  "constant",
+                  "binding"
+                ]
+              },
+              "table": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "format": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "on_miss": {
+                "enum": [
+                  "fail",
+                  "omit"
+                ],
+                "default": "fail"
+              },
+              "prefix": {
+                "type": "string"
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "transform": {
+                      "const": "code"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "table"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "transform": {
+                      "const": "format"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "format"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "transform": {
+                      "const": "constant"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "transform": {
+                      "const": "binding"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "prefix"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "prefix": {
+          "type": "string",
+          "description": "binding: the IRI the value's definition must start with; its fragment is the code."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "cluster"
+            ]
+          },
+          "then": {
+            "properties": {
+              "transform": {
+                "enum": [
+                  "group",
+                  "omit"
+                ]
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "transform"
+            ],
+            "properties": {
+              "transform": {
+                "enum": [
+                  "copy",
+                  "code",
+                  "format",
+                  "constant",
+                  "omit",
+                  "binding"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transform": {
+                "const": "code"
+              }
+            },
+            "required": [
+              "transform"
+            ]
+          },
+          "then": {
+            "required": [
+              "table"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transform": {
+                "const": "format"
+              }
+            },
+            "required": [
+              "transform"
+            ]
+          },
+          "then": {
+            "required": [
+              "format"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transform": {
+                "const": "constant"
+              }
+            },
+            "required": [
+              "transform"
+            ]
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transform": {
+                "const": "omit"
+              }
+            },
+            "required": [
+              "transform"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transform": {
+                "const": "binding"
+              }
+            },
+            "required": [
+              "transform"
+            ]
+          },
+          "then": {
+            "required": [
+              "prefix"
+            ]
+          }
+        }
+      ]
+    },
+    "ct_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]{24,32}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Target steps separated by '/'; a leading '/' is absolute; a final step '@name' is an attribute of the element before it (or of the enclosing element when it is the only step).",
+      "pattern": "^(/?[^/@\\s]+(/[^/@\\s]+)*(/@[^/@\\s]+)?|@[^/@\\s]+)$"
+    }
+  }
+}

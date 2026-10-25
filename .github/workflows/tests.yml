@@ -1,0 +1,16 @@
+name: tests
+# Offline on every pull request and on main.
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: python -m pytest tests -q -p no:warnings -m "not network"

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdc-mapper"
+version = "4.1.1"
+description = "The shared core of the Semantic Data Charter's Governed Data Record mappers: validate, resolve, map, and report every value; MCP server included."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+authors = [{ name = "Axius SDC, Inc." }]
+keywords = ["sdc", "semantic data charter", "governed data record", "mapping", "exceptional values", "iso 21090", "mcp"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "sdcreader>=4.4,<5",      # the package, the model and the record reader (cluster instances: 4.4.0)
+    "sdcvalidator>=4.6,<5",   # the validation gate: recover() (4.6.0) keeps source Exceptional Values
+    "xmlschema>=3.0",         # XMLResource, so prefixed QNames in content (xsi:type) resolve
+    "pyyaml>=6.0",            # mapping files
+    "jsonschema>=4.20",       # mapping-file and log-entry schemas
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+# The bare name is what the MCP registry launches (`uvx sdc-mapper`), matching the other SDC MCP servers.
+sdc-map = "sdc_mapper.cli:main"
+sdc-mapper = "sdc_mapper.mcp_server:main"
+sdc-mapper-mcp = "sdc_mapper.mcp_server:main"
+
+[project.urls]
+Repository = "https://github.com/SemanticDataCharter/sdc-mapper"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+sdc_mapper = ["schemas/*.xsd", "schemas/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["network: needs the network"]
