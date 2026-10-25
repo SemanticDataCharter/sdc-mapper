@@ -3,6 +3,13 @@
 Versions carry the leading 4 of the SDC4 reference model: an addition is a minor version, a fix a patch, and the
 major changes only when the reference model does.
 
+## 4.2.0 (2026-10-25)
+
+- **`=name` steps.** A value can be written into the element a nested cluster makes: the line's answer in a UBL order
+  response goes in the line item's `LineStatusCode`, though the answer belongs to the line and the line item is its
+  own cluster. The step joins the element of that name the parent already has, or makes one when there is none;
+  `place()` marks it with `JOIN`, and the writer resolves it after placing every other value.
+
 ## 4.1.1 (2026-10-25)
 
 The MCP server is registered in the MCP Registry as `io.github.SemanticDataCharter/sdc-mapper`, launched as

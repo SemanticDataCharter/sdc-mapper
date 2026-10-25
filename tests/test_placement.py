@@ -194,3 +194,11 @@ def test_binding_writes_the_code_the_model_binds_the_value_to(tmp_path):
     assert p.text == v.code.defined_by.rsplit("#", 1)[1]
     with pytest.raises(MappingError, match="does not bind"):
         place(resolved(), mapping(tmp_path, [{**rules[0], "prefix": "urn:nothing"}]))
+
+
+def test_an_equals_step_is_marked_for_the_writer_to_join(tmp_path):
+    from sdc_mapper import JOIN
+    rules = PARTY_RULES + [{"component": ct("Endpoint ID"), "to": "=cac:PartyName/cbc:Name2", "transform": "copy"}]
+    ps, _ = place(resolved(), mapping(tmp_path, rules))
+    p = next(p for p in by_label(ps, "Endpoint ID") if p.steps)
+    assert p.steps[-2] == ("cac:PartyName", JOIN)

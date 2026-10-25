@@ -11,7 +11,7 @@ target could say it too. Every call is appended to a hash-chained log that holds
 Each target format is its own package (`sdc-gdr2ubl`, `sdc-gdr2edifact`, `sdc-gdr2omop`, ...) registered under the
 entry-point group `sdc_mapper.targets`. Outbound only. Apache 2.0.
 
-**Status:** 4.1.1. The first target mapper, `sdc-gdr2ubl` (OASIS UBL 2.3), is in development.
+**Status:** 4.2.0. The first target mapper, `sdc-gdr2ubl` (OASIS UBL 2.3), is in development.
 
 ## Use
 
@@ -65,8 +65,9 @@ rules:
     reason: the target profile carries no contact
 ```
 
-Transforms: `copy`, `code` (a table), `format`, `constant`, `omit`; clusters `group` or `omit`. `within:` restricts a
-rule to a context. A value no rule reaches is reported, never dropped. `place(record, mapping)` turns a record and its
+Transforms: `copy`, `code` (a table), `format`, `constant`, `binding` (the code the model binds a value to), `omit`;
+clusters `group` or `omit`. Steps: `..` up, `.` none, `+name` an element of the value's own, `=name` the element of that
+name the parent already has. `within:` restricts a rule to a context. A value no rule reaches is reported, never dropped. `place(record, mapping)` turns a record and its
 mapping into placements a mapper writes from.
 
 ## Writing a mapper

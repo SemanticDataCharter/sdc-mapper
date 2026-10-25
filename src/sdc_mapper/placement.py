@@ -24,6 +24,12 @@ from .resolve import ResolvedRecord, ResolvedValue
 #: their elements; a step written '+name' belongs to the value alone (one Dimension per measure).
 Step = tuple[str, tuple]
 
+#: The key of a step written '=name': the element of that name its parent already has (made by a nested cluster, a
+#: line item's element for the line's own answer), or a new one when there is none. Which element that is depends on
+#: everything placed under the parent, so the writer resolves it, after placing every other value; more than one
+#: element of that name under the parent is the writer's to refuse.
+JOIN = ("=",)
+
 
 @dataclass
 class Extra:
@@ -74,7 +80,8 @@ def _split(path: str) -> tuple[bool, list[str], str | None]:
 
 
 def _steps(mapping: Mapping, base: list[Step], path: str, key: tuple, own: tuple) -> tuple[list[Step], str | None]:
-    """A path's steps from the enclosing element's: '..' goes up one, '+name' is the value's own element."""
+    """A path's steps from the enclosing element's: '..' goes up one, '+name' is the value's own element, '=name'
+    joins the element of that name the parent already has."""
     absolute, parts, attr = _split(path)
     steps = [] if absolute else list(base)
     for part in parts:
@@ -84,6 +91,8 @@ def _steps(mapping: Mapping, base: list[Step], path: str, key: tuple, own: tuple
             steps.pop()
         elif part.startswith("+"):
             steps.append((part[1:], own))
+        elif part.startswith("="):
+            steps.append((part[1:], JOIN))
         else:
             steps.append((part, key))
     return steps, attr
