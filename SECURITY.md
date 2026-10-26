@@ -1,6 +1,7 @@
 # Security
 
-Report a vulnerability privately to security@axius-sdc.com. Please do not open a public issue. The organization
+Report a vulnerability privately to security@axius-sdc.com, or through GitHub's private vulnerability reporting
+(Security tab, "Report a vulnerability"). Please do not open a public issue. The organization
 policy is at https://github.com/SemanticDataCharter/.github/blob/main/SECURITY.md. Expect an acknowledgement within
 three business days, and a fix released before anything is made public.
 
