@@ -105,3 +105,18 @@ def test_a_term_or_a_page_anchor_is_no_concept_code(iri, tmp_path):
 def test_a_code_list_entry_still_binds_an_enumerated_value():
     assert code_of(f"{UBL_LIST}#2") == CodeRef(UBL_LIST, "2")
     assert code_of(f"{UBL_LIST}#2", code_lists=False) is None
+
+
+def test_a_compound_concept_gives_no_linked_code():
+    """4.3.2: several subjects are the parts of a compound concept; no part alone is the component."""
+    from sdc_mapper import linked_code, NCIT
+    rs = resolved()
+    subject = "http://purl.org/dc/terms/subject"
+    parts = ["http://purl.obolibrary.org/obo/NCIT_C25190", "http://purl.obolibrary.org/obo/NCIT_C25471", "http://purl.obolibrary.org/obo/NCIT_C25742"]
+    compound = _value_with(rs, links={subject: parts})
+    assert linked_code(compound) is None and linked_code(compound, NCIT) is None
+    one = _value_with(rs, links={subject: ["http://snomed.info/id/73211009"]})
+    assert linked_code(one).code == "73211009", "a single subject is the component's concept"
+    exact = _value_with(rs, links={"http://www.w3.org/2004/02/skos/core#exactMatch": ["https://loinc.org/8480-6/"], subject: parts})
+    assert linked_code(exact).code == "8480-6", "an exact match wins over a compound's parts"
+    assert model_codes(compound) == {"C25190", "C25471", "C25742"}, "the parts are still codes the model names"
