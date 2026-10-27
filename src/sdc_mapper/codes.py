@@ -73,12 +73,18 @@ def bound_code(value, system: str | None = None) -> CodeRef | None:
 
 
 def linked_code(value, system: str | None = None, predicates=CONCEPT_LINKS) -> CodeRef | None:
-    """The first code the component links to (in `system`, when given), by the predicates in order: a code system's
-    concept only, never a `#fragment` (a link names a concept; a fragment in a link is a term or a page anchor)."""
+    """The code the component links to (in `system`, when given), by the predicates in order: a code system's concept
+    only, never a `#fragment` (a link names a concept; a fragment in a link is a term or a page anchor).
+
+    An exact match is the component's concept. A subject is, only when it is the component's one subject: several
+    subjects are the parts of a compound concept (NIH's "Are you pregnant now?" is Person + Current + Pregnancy), no
+    part alone is the component, so a compound gives no code (4.3.2)."""
     links = getattr(value, "links", None) or {}
     for predicate in predicates:
-        for iri in links.get(predicate, []):
-            ref = code_of(iri, code_lists=False)
+        refs = [r for r in (code_of(iri, code_lists=False) for iri in links.get(predicate, [])) if r is not None]
+        if predicate == SUBJECT and len(refs) > 1:
+            return None
+        for ref in refs:
             if _in(ref, system):
                 return ref
     return None
