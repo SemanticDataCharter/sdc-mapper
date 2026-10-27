@@ -3,6 +3,16 @@
 Versions carry the leading 4 of the SDC4 reference model: an addition is a minor version, a fix a patch, and the
 major changes only when the reference model does.
 
+## 4.3.2 (2026-10-27)
+
+- **A compound concept gives no linked code.** `linked_code()` took a component's first subject as its concept. NIH
+  describes most data elements with a compound concept, written as several subjects (NIH's "Are you pregnant now?"
+  is Person + Current + Pregnancy), and no part alone is the component: the first part read as the code would name
+  Person. A subject is now the component's concept only when it is its one subject; an exact match still wins, and
+  `model_codes()` still counts every part as a code the model names. Found when the NIH CDE library stopped claiming a
+  compound's first part as an exact match (its R-2026-10-27); sdc-gdr2omop 4.0.6 had already done the same in its own
+  concept reading.
+
 ## 4.3.1 (2026-10-25)
 
 - **Concept links read only a code system's own forms.** In 4.3.0 `code_of` read any IRI ending in `#something` as an
