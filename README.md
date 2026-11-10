@@ -28,6 +28,8 @@ sdc-mapper [--log-dir DIR] [--host URL]            # MCP stdio server (also sdc-
 A model is a package directory (`dm-<ct>.jsonld`, `dm-<ct>.xsd`) or a published model's `--ct-id`, fetched from the
 SDCStudio host; with neither, the record's own root names it. Exit status: 0 mapped, 1 refused, 2 error.
 
+Also listed on [mcprush](https://mcprush.com/semanticdatacharter/sdc-mapper-mcp).
+
 ## The three outcomes
 
 - **valid:** mapped.
