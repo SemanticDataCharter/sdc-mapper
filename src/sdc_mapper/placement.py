@@ -16,7 +16,7 @@ from datetime import date, datetime, time
 from decimal import Decimal
 
 from .codes import CONCEPT_LINKS, bound_code, linked_code
-from .mapping import Mapping, MappingError, Rule
+from .mapping import Mapping, MappingError, Rule, ancestor_tokens
 from .resolve import ResolvedRecord, ResolvedValue
 
 #: A step of a target path: the element name, and the key of the instance that owns it. Steps with equal names and
@@ -188,11 +188,13 @@ def place(record: ResolvedRecord, mapping: Mapping) -> tuple[list[Placement], li
     placements: list[Placement] = []
     for v in record.values:
         ids = [c.ct_id for c in v.path]
+        tokens = ancestor_tokens(v.path, v.roles)     # identifiers, and the reference-model elements steps stand in
+        roles = tuple(v.roles) or ("",) * len(ids)
         # the enclosing clusters' rules, outermost first, each resolved in its own context
         base: list[Step] = []
         omitted_by = None
         for i, cid in enumerate(ids):
-            rule = mapping.cluster_rule(cid, ids[:i])
+            rule = mapping.cluster_rule(cid, [t for step in tokens[:i] for t in step], roles[i])
             if rule is None:
                 continue
             if rule.transform == "omit":
@@ -203,7 +205,7 @@ def place(record: ResolvedRecord, mapping: Mapping) -> tuple[list[Placement], li
             if attr:
                 raise MappingError(f"mapping {mapping.id}: cluster rule for {cid} ends in an attribute ({rule.to})")
             clusters.setdefault(key, ClusterPlacement(key=key, steps=list(base), attributes=dict(rule.attributes)))
-        leaf = None if omitted_by else mapping.rule_for(v.ct_id, v.sdc_type, ids)
+        leaf = None if omitted_by else mapping.rule_for(v.ct_id, v.sdc_type, [t for step in tokens for t in step], v.role)
         p = Placement(value=v, rule=leaf, omitted_by=omitted_by)
         if leaf is not None and leaf.transform == "omit":
             p.omitted_by = leaf

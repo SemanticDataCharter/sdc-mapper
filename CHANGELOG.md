@@ -3,6 +3,39 @@
 Versions carry the leading 4 of the SDC4 reference model: an addition is a minor version, a fix a patch, and the
 major changes only when the reference model does.
 
+## 4.4.0 (2026-11-20)
+
+Mapping rules reach the reference-model parts beyond the data cluster (sdcreader 4.5.0, now required): a record's
+subject and providers, its Participations, protocol, workflow, acs, Audits and attestation. The first use is the
+SDCHealth Laboratory Report in sdc-gdr2fhir, whose FHIR Composition needs an author, and the author is the record's
+provider.
+
+- **`reference_model: true`** in a mapping file reads the record with those parts; every value read there must then
+  reach a rule or be reported, as data-cluster values are. Off by default, so every existing mapping reads, places and
+  reports exactly as before.
+- **A Party's details are named like any component.** A part the generated schema types by a component (a Party, its
+  details cluster, a Participation's function, an Attestation's reason) has that component's identifier, so
+  `cluster: <Author>` places the provider and `component: <Given Name>, within: [<Author>]` its given name.
+- **`cluster` and `within` may name the reference-model element a part stands in** (`subject`, `provider`, `performer`,
+  `committer`, `party-details`, `workflow`, `attestation`, `location`, `system-user`), for the parts a schema leaves as
+  the reference model's own type and wherever one Party component serves two roles. An identifier rule wins over an
+  element rule for the same cluster.
+- **`element`** names a reference-model element that holds a value (`start`, `end`, `party-name`, `party-ref`,
+  `function`, `mode`, `reason`, `view`, `proof`, `committed`, `pending`, `system-id`, `timestamp`, `protocol`, `acs`).
+  A component rule wins over an element rule, and an element rule over a type rule.
+- A mapping whose rules name reference-model elements without `reference_model: true` is refused when loaded: such a
+  rule could never apply.
+- The mapping schema adds `reference_model`, `element` and the `rm_part`/`rm_element` names; every 4.3 mapping file
+  still validates unchanged. `ResolvedValue.roles`/`.role`, `ResolvedRecord.reference_model`,
+  `Mapping.names_reference_model`, `ancestor_tokens()`.
+- **The gate numbers values with sdcreader's own walk** (`walk_values`), so a recovery inside a Party's details or a
+  Participation's function lands on the value the reader gives when the mapping reads the parts. Without the flag the
+  numbering is the same as before; a recovery outside every value the mapping reads is refused, as in 4.3.
+- **MCP:** `check_mapping` reports `reference_model` and the reference-model names a mapping uses and, given a model,
+  the identifiers its rules name that the model does not have.
+- Fixture: the SDCHealth Laboratory Report package (production, public) and two synthetic records of it. A test checks
+  sdcreader's table of reference-model elements against sdc4.xsd.
+
 ## 4.3.2 (2026-10-27)
 
 - **A compound concept gives no linked code.** `linked_code()` took a component's first subject as its concept. NIH

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sdc-mapper"
-version = "4.3.2"
+version = "4.4.0"
 description = "The shared core of the Semantic Data Charter's Governed Data Record mappers: validate, resolve, map, and report every value; MCP server included."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "sdcreader>=4.4,<5",      # the package, the model and the record reader (cluster instances: 4.4.0)
+    "sdcreader>=4.5,<5",      # the package, the model and the record reader (cluster instances: 4.4.0; reference-model parts: 4.5.0)
     "sdcvalidator>=4.6,<5",   # the validation gate: recover() (4.6.0) keeps source Exceptional Values
     "xmlschema>=3.0",         # XMLResource, so prefixed QNames in content (xsi:type) resolve
     "pyyaml>=6.0",            # mapping files

@@ -11,7 +11,7 @@ target could say it too. Every call is appended to a hash-chained log that holds
 Each target format is its own package (`sdc-gdr2ubl`, `sdc-gdr2edifact`, `sdc-gdr2omop`, ...) registered under the
 entry-point group `sdc_mapper.targets`. Outbound only. Apache 2.0.
 
-**Status:** 4.3.2. Five target mappers are released: `sdc-gdr2ubl` (OASIS UBL 2.3), `sdc-gdr2edifact` (UN/EDIFACT
+**Status:** 4.4.0. Five target mappers are released: `sdc-gdr2ubl` (OASIS UBL 2.3), `sdc-gdr2edifact` (UN/EDIFACT
 D.24A), `sdc-gdr2omop` (OMOP CDM 5.4), `sdc-gdr2fhir` (HL7 FHIR R4) and `sdc-gdr2hl7v2` (HL7 v2.5.1).
 
 ## Use
@@ -74,6 +74,28 @@ take a `system` (`http://loinc.org`, `http://snomed.info/sct`, a code list's IRI
 reports it as a lookup (`LOOKUP_TRANSFORMS`). Steps: `..` up, `.` none, `+name` an element of the value's own, `=name`
 the element of that name the parent already has. `within:` restricts a rule to a context. A value no rule reaches is
 reported, never dropped. `place(record, mapping)` turns a record and its mapping into placements a mapper writes from.
+
+**The reference-model parts (4.4.0).** `reference_model: true` reads a record's subject, providers, Participations,
+protocol, workflow, acs, Audits and attestation as well as its data cluster. A Party, its details cluster and their
+components are named by identifier, as anywhere; `cluster` and `within` may also name the reference-model element a part
+stands in, and `element` a reference-model element that holds a value:
+
+```yaml
+reference_model: true
+rules:
+  - cluster: <Author>                       # the record's provider Party
+    to: /entry#author/resource
+  - component: <Given Name (Person)>
+    within: [<Author>]                      # the Author's details, not the Patient's
+    to: name/given
+    transform: copy
+  - cluster: subject                        # whatever Party the record's subject is
+    to: /entry#patient/resource
+  - element: start                          # a Participation's start (xsd:dateTime, read as a temporal value)
+    within: [<Attester Participation>]
+    to: time
+    transform: copy
+```
 
 ## Codes the model names
 

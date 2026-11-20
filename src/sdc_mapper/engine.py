@@ -76,12 +76,13 @@ class Engine:
         except MappingError as e:
             return self._finish(CallResult(ERROR, errors=[{"kind": "mapping", "reason": str(e)}]), base)
 
-        gate = self.gate.check(xml, pkg, model)
+        rm = bool(mapping and mapping.reference_model)   # the reference-model parts, read only when the mapping asks
+        gate = self.gate.check(xml, pkg, model, reference_model=rm)
         if gate.outcome == REFUSED:
             return self._finish(CallResult(REFUSED, errors=gate.errors), base)
 
         try:
-            resolved = resolve(read_record(gate.xml, model), model, pkg, gate)
+            resolved = resolve(read_record(gate.xml, model, reference_model=rm), model, pkg, gate)
             result = mapper.map(resolved, mapping)
             report = build_report(resolved, result, mapper, mapping)
         except IncompleteMapping as e:
