@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://semanticdatacharter.com/schemas/sdc-mapper/mapping-4.json",
   "title": "sdc-mapper mapping file",
-  "description": "How one model's components reach one target where the model alone does not settle it. Bound to one model schema version and one target version; immutable once published. No expressions or code. Since 4.1.0, rules may map a cluster to a target element (with a `within` context for a cluster used in several places), target paths are relative to the enclosing mapped cluster unless they start with '/', a final '@name' step places an attribute, and a `units` sub-rule places a quantity's unit. A '..' step goes up from the enclosing mapped cluster's element, a '.' step is no step, and a step prefixed '+' makes a new element for each value rather than sharing one by name. `also` writes the same value to further places; `on_miss: omit` leaves a code-table miss unwritten instead of failing. The `binding` transform writes the code the model binds a value to (the fragment of the IRI its enumeration value is defined by, under `prefix`): the model, not the mapping, supplies the value. A step written '=name' joins the element of that name its parent already has (one a nested cluster makes), or makes one when there is none. A cluster rule's `order` ranks the elements made under it among same-named elements made under its sibling clusters. Since 4.3.0, `binding` reads every IRI form the component libraries use (LOINC, SNOMED CT, NCIt, a code list's fragment) and takes the code system as `system`; `link` writes the code of the concept the component links to (skos:exactMatch, then dcterms:subject, or `predicates`).",
+  "description": "How one model's components reach one target where the model alone does not settle it. Bound to one model schema version and one target version; immutable once published. No expressions or code. Since 4.1.0, rules may map a cluster to a target element (with a `within` context for a cluster used in several places), target paths are relative to the enclosing mapped cluster unless they start with '/', a final '@name' step places an attribute, and a `units` sub-rule places a quantity's unit. A '..' step goes up from the enclosing mapped cluster's element, a '.' step is no step, and a step prefixed '+' makes a new element for each value rather than sharing one by name. `also` writes the same value to further places; `on_miss: omit` leaves a code-table miss unwritten instead of failing. The `binding` transform writes the code the model binds a value to (the fragment of the IRI its enumeration value is defined by, under `prefix`): the model, not the mapping, supplies the value. A step written '=name' joins the element of that name its parent already has (one a nested cluster makes), or makes one when there is none. A cluster rule's `order` ranks the elements made under it among same-named elements made under its sibling clusters. Since 4.3.0, `binding` reads every IRI form the component libraries use (LOINC, SNOMED CT, NCIt, a code list's fragment) and takes the code system as `system`; `link` writes the code of the concept the component links to (skos:exactMatch, then dcterms:subject, or `predicates`). Since 4.4.0, `reference_model: true` reads the record's reference-model parts beyond the data cluster (the DM's subject and providers, Participations, protocol, workflow, acs, Audits and attestation, and each Party's name, reference and details); a part the schema types by a component (a Party, its details cluster, a Participation's function) is named by its identifier as any component is, a `cluster` or `within` entry may also name the reference-model element a part stands in (subject, provider, performer, committer, party-details, ...), and `element` names a reference-model element that holds a value (start, end, party-name, committed, pending, ...).",
   "type": "object",
   "required": [
     "mapping",
@@ -81,6 +81,11 @@
     },
     "carry_rejected": {
       "description": "Write a value rejected by recovery as text, marked as rejected, where the target has a note field. Off by default.",
+      "type": "boolean",
+      "default": false
+    },
+    "reference_model": {
+      "description": "Read the record's reference-model parts beyond the data cluster (sdcreader 4.5.0): every value read there must then reach a rule or be reported, as data-cluster values are. Off by default; rules that name reference-model elements need it.",
       "type": "boolean",
       "default": false
     },
@@ -163,6 +168,11 @@
           "required": [
             "cluster"
           ]
+        },
+        {
+          "required": [
+            "element"
+          ]
         }
       ],
       "properties": {
@@ -173,16 +183,34 @@
           "type": "string",
           "pattern": "^Xd[A-Za-z]+$"
         },
+        "element": {
+          "$ref": "#/$defs/rm_element",
+          "description": "A reference-model element that holds a value (4.4.0), for a value the schema types by no component of its own or wherever the element, not the component, should decide: a Participation's start or end, a Party's party-name, an Attestation's committed or pending. Needs `reference_model: true`."
+        },
         "cluster": {
-          "$ref": "#/$defs/ct_id"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ct_id"
+            },
+            {
+              "$ref": "#/$defs/rm_part"
+            }
+          ]
         },
         "within": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/ct_id"
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ct_id"
+              },
+              {
+                "$ref": "#/$defs/rm_part"
+              }
+            ]
           },
           "minItems": 1,
-          "description": "Ancestor clusters that must enclose the component or cluster, outermost first, for the rule to apply."
+          "description": "Ancestor clusters that must enclose the component or cluster, outermost first, for the rule to apply: by identifier, or (4.4.0) by the reference-model element a part stands in."
         },
         "to": {
           "$ref": "#/$defs/path"
@@ -503,6 +531,40 @@
       "minLength": 1,
       "description": "Target steps separated by '/'; a leading '/' is absolute; a final step '@name' is an attribute of the element before it (or of the enclosing element when it is the only step).",
       "pattern": "^(/?[^/@\\s]+(/[^/@\\s]+)*(/@[^/@\\s]+)?|@[^/@\\s]+)$"
+    },
+    "rm_part": {
+      "description": "A reference-model element that holds further elements (sdc4.xsd DMType, PartyType, ParticipationType, AttestationType, AuditType).",
+      "enum": [
+        "attestation",
+        "committer",
+        "location",
+        "party-details",
+        "performer",
+        "provider",
+        "subject",
+        "system-user",
+        "workflow"
+      ]
+    },
+    "rm_element": {
+      "description": "A reference-model element that holds a value (sdc4.xsd DMType, PartyType, ParticipationType, AttestationType, AuditType).",
+      "enum": [
+        "acs",
+        "committed",
+        "end",
+        "function",
+        "mode",
+        "party-name",
+        "party-ref",
+        "pending",
+        "proof",
+        "protocol",
+        "reason",
+        "start",
+        "system-id",
+        "timestamp",
+        "view"
+      ]
     }
   }
 }

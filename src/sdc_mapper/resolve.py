@@ -49,6 +49,9 @@ class ResolvedValue:
     exceptional: Exceptional | None = None
     rejected: dict = field(default_factory=dict)   # recovery only: the value as the record held it; never a value
     instances: tuple[int, ...] = ()                # parallel to `path`: each cluster's instance (sdcreader 4.4.0)
+    roles: tuple[str, ...] = ()                    # parallel to `path`: the reference-model element each step stands
+                                                   # in ("subject", "performer", "party-details"), "" for a component
+    role: str = ""                                 # the reference-model element the value stands in ("start")
 
     @property
     def instance_key(self) -> tuple[tuple[str, int], ...]:
@@ -81,6 +84,7 @@ class ResolvedRecord:
     attributes: dict[str, str]
     outcome: str                 # the gate's: valid or valid_with_ev
     values: list[ResolvedValue]
+    reference_model: bool = False   # read with the reference-model parts beyond the data cluster (4.4.0)
 
     @property
     def instance_id(self) -> str:
@@ -105,6 +109,7 @@ def resolve(record: Record, model: Model, pkg: ModelPackage, gate: GateResult) -
         ct_id=model.ct_id, title=model.title, schema_sha256=pkg.sha256, schema_url=pkg.schema_url_pinned,
         dublin_core={k: v for k in DC_FIELDS if (v := (model.contributors if k == "contributor" else model.dc(k)))},
         attributes=dict(record.attributes), outcome=gate.outcome, values=values,
+        reference_model=getattr(record, "reference_model", False),
     )
 
 
@@ -130,7 +135,8 @@ def _resolve(v, model: Model, constraints: dict[int, str]) -> ResolvedValue:
                          value=value, detail=detail, units=units, code=code, links=dict(comp.links),
                          context=dict(v.context), exceptional=exceptional,
                          rejected=dict(v.elements) if exceptional and exceptional.origin == "recovery" else {},
-                         instances=tuple(getattr(v, "instances", ())) or tuple(0 for _ in v.path))
+                         instances=tuple(getattr(v, "instances", ())) or tuple(0 for _ in v.path),
+                         roles=tuple(getattr(v, "roles", ())) or tuple("" for _ in v.path), role=getattr(v, "role", ""))
 
 
 def _text(x) -> str | None:

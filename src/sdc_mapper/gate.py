@@ -20,7 +20,8 @@ import threading
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from sdcreader import LEAF_TYPES, Model, ModelPackage
+from sdcreader import Model, ModelPackage
+from sdcreader.record import walk_values
 from sdcvalidator import (SDC4StructuralValidationError, SDC4Validator, build_xsd11_schema, etree_tostring,
                           validate_sdc4_schema_compliance)
 from xmlschema import XMLResource
@@ -83,7 +84,9 @@ class Gate:
                 self._validators[sha] = v
             return v
 
-    def check(self, xml: bytes, pkg: ModelPackage, model: Model) -> GateResult:
+    def check(self, xml: bytes, pkg: ModelPackage, model: Model, reference_model: bool = False) -> GateResult:
+        """`reference_model`: number values as sdcreader does when it also reads the reference-model parts (4.4.0), so
+        a recovery inside a Party's details or a Participation's function lands on the value the reader gives."""
         try:
             resource = XMLResource(io.BytesIO(xml))
         except Exception as e:  # noqa: BLE001  xmlschema raises its own and the parser's errors
@@ -101,15 +104,16 @@ class Gate:
             return GateResult(VALID, xml=xml)
 
         root = result.tree.getroot()
-        positions = _value_positions(root, model)
+        values = _value_elements(root, model, reference_model)
+        positions = {id(el): i for i, (el, _) in enumerate(values)}
         recoveries = []
         for r in result.inserted:     # an Exceptional Value the record already carried is the source's, not the gate's
-            comp = _component_element(root, _find(root, r.path), model)
+            comp = _component_element(root, _find(root, r.path), positions)
             if comp is None:
                 return GateResult(REFUSED, errors=[{"kind": "not recoverable", "path": r.path,
                                                     "reason": "the recovered value is not inside a value component"}])
-            recoveries.append(Recovery(position=positions[id(comp)], ct_id=comp.tag.split("ms-", 1)[1], code=r.code,
-                                       constraint=r.reason))
+            i = positions[id(comp)]
+            recoveries.append(Recovery(position=i, ct_id=values[i][1], code=r.code, constraint=r.reason))
         recovered = etree_tostring(root, namespaces=resource.get_namespaces(root_only=False) or {"sdc4": SDC4_NS},
                                    xml_declaration=True, encoding="utf-8")
         return GateResult(VALID_WITH_EV, xml=recovered if isinstance(recovered, bytes) else recovered.encode("utf-8"),
@@ -143,37 +147,22 @@ def _find(root, path: str):
     return el
 
 
-def _component_element(root, el, model: Model):
-    """The leaf component element (`sdc4:ms-<ct_id>` of a value type) that holds `el`, or None."""
+def _component_element(root, el, positions: dict[int, int]):
+    """The value element (a leaf component's `sdc4:ms-<ct_id>`, or since 4.4.0 a reference-model element such as a
+    Participation's function) that holds `el`, or None."""
     parents = {c: p for p in root.iter() for c in p}
     while el is not None:
-        if el.tag.startswith(f"{{{SDC4_NS}}}ms-"):
-            comp = model.components.get(el.tag.split("ms-", 1)[1])
-            if comp is not None and comp.sdc_type in LEAF_TYPES:
-                return el
+        if id(el) in positions:
+            return el
         el = parents.get(el)
     return None
 
 
-def _value_positions(root, model: Model) -> dict[int, int]:
-    """Each leaf component element's position among the record's values, in document order: the numbering
-    sdcreader's `read_record` gives the same record."""
-    out, n = {}, 0
-
-    def walk(el):
-        nonlocal n
-        for c in el:
-            if not (isinstance(c.tag, str) and c.tag.startswith(f"{{{SDC4_NS}}}ms-")):
-                continue
-            comp = model.components.get(c.tag.split("ms-", 1)[1])
-            if comp is not None and comp.sdc_type in LEAF_TYPES:
-                out[id(c)] = n
-                n += 1
-            else:
-                walk(c)
-
-    walk(root)
-    return out
+def _value_elements(root, model: Model, reference_model: bool = False) -> list[tuple]:
+    """Every value element in document order with its component's identifier: the numbering sdcreader's
+    `read_record` gives the same record (its own walk, so the two cannot drift). The elements are held in the list,
+    so their ids stay valid while it lives."""
+    return [(t[0], t[1].ct_id) for t in walk_values(root, model, reference_model)]
 
 
 def sha256(data: bytes) -> str:

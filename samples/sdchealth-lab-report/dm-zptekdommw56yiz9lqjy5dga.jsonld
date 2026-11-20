@@ -1,0 +1,3963 @@
+{
+ "@context": {
+  "@vocab": "https://semanticdatacharter.com/ns/sdc4/",
+  "sdc4": "https://semanticdatacharter.com/ns/sdc4/",
+  "sdc4-meta": "https://semanticdatacharter.com/ontology/sdc4-meta/",
+  "xsd": "http://www.w3.org/2001/XMLSchema#",
+  "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+  "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+  "dc": "http://purl.org/dc/elements/1.1/",
+  "sh": "http://www.w3.org/ns/shacl#",
+  "label": "rdfs:label",
+  "description": "rdfs:comment",
+  "type": "@type",
+  "id": "@id"
+ },
+ "@type": "DataModel",
+ "@id": "sdc4:dm-zptekdommw56yiz9lqjy5dga",
+ "identifier": "zptekdommw56yiz9lqjy5dga",
+ "label": "Laboratory Report",
+ "description": "Laboratory result report model. Xt-EHR EHDS EHDSLaboratoryReport. openEHR archetypes of the same concept, linked by CKM citeable identifier: openEHR-EHR-COMPOSITION.report-result.v1 (published); openEHR-EHR-OBSERVATION.laboratory_test_result.v1 (published). An example model of the SDCHealth library (Xt-EHR EHDS logical models 1.0.0); copy it and edit the copy.",
+ "metadata": {
+  "dc:title": "Laboratory Report",
+  "dc:creator": "Timothy Cook",
+  "dc:contributor": [],
+  "dc:subject": "health; EHDS; laboratory report",
+  "dc:source": "",
+  "dc:rights": "CC BY 4.0",
+  "dc:relation": "None",
+  "dc:coverage": "Universal",
+  "dc:type": "SDC Data Model (DM)",
+  "dc:identifier": "dm-zptekdommw56yiz9lqjy5dga",
+  "dc:description": "Laboratory result report model. Xt-EHR EHDS EHDSLaboratoryReport. openEHR archetypes of the same concept, linked by CKM citeable identifier: openEHR-EHR-COMPOSITION.report-result.v1 (published); openEHR-EHR-OBSERVATION.laboratory_test_result.v1 (published). An example model of the SDCHealth library (Xt-EHR EHDS logical models 1.0.0); copy it and edit the copy.",
+  "dc:publisher": "Axius SDC, Inc.",
+  "dc:date": "2026-11-19T14:10:06.931146+00:00",
+  "dc:format": "text/xml",
+  "dc:language": "en-US"
+ },
+ "components": [
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-wpdxubv2w0me9ld80qdorjl2",
+   "label": "Document Header Title",
+   "description": "Human readable document title that can be displayed in search results, etc. This can be documentType's display name, or it can be assembled from multiple elements. Examples: 'Laboratory Result Report', 'Patient Summary of Jane Green 10.12.2024' Xt-EHR EHDS EHDSDischargeReport.header.documentTitle, EHDSDocument.header.documentTitle, EHDSImagingReport.header.documentTitle, EHDSLaboratoryReport.header.documentTitle and 1 more.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 500
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/document-header-title"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.documentTitle"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.documentTitle"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.header.documentTitle"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSPatientSummary-definitions.html#EHDSPatientSummary.header.documentTitle"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.documentTitle"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-b5v4p5ju74ugnzyt9bh98398",
+   "label": "Parent Record Identifier",
+   "description": "The business identifier of the record this record belongs to: the allergy a reaction event belongs to, the prescription an item belongs to, the document an entry belongs to. Repeating parts are records chained to their parent by this identifier (PRD decision 12).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 255
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/parent-record-identifier"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-hba1rwqj6zyxj4l3xlpb4dea",
+   "label": "Version",
+   "description": "The version of the resource (dcat:version).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 60
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.w3.org/TR/vocab-dcat-3/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/version"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://www.w3.org/ns/dcat#version"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-wn0n6wvu7q8899wxbi5k0mv5"
+    }
+   ]
+  },
+  {
+   "@type": "XdTemporalType",
+   "@id": "sdc4:mc-g3m0lzwvs18eckx4wsm6av5d",
+   "label": "Authored Date",
+   "description": "Date and optionally time of authoring/issuing Xt-EHR EHDS EHDSAdvanceDirective.header.date, EHDSAlert.header.date, EHDSAllergyIntolerance.header.date, EHDSCarePlan.header.date and 22 more.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:dateTime",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/authored-date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAdvanceDirective-definitions.html#EHDSAdvanceDirective.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAlert-definitions.html#EHDSAlert.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAllergyIntolerance-definitions.html#EHDSAllergyIntolerance.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSCarePlan-definitions.html#EHDSCarePlan.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSCurrentPregnancy-definitions.html#EHDSCurrentPregnancy.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDataSet-definitions.html#EHDSDataSet.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDeviceUse-definitions.html#EHDSDeviceUse.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSEncounter-definitions.html#EHDSEncounter.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSCondition-definitions.html#EHDSCondition.header.date"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-fo6qinkjksovtif39psfofav",
+   "label": "Document Title",
+   "description": "The title of the document. FHIR DocumentReference.content.attachment.title.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 255
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/document-title"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.content.attachment.title"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-gejo486e8c6wao5qme0i6neb"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-x5u6952free06snjx23jkx0x",
+   "label": "Document URL",
+   "description": "Where the document content is. Holds the IRI of the referenced resource. FHIR DocumentReference.content.attachment.url.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "\\S+"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/document-url"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.content.attachment.url"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-zysx61d6pdaonbkz8ozzkl77"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-nsapfk3gom5sc51bvfo1nkns",
+   "label": "Media Type",
+   "description": "The IANA media type of a distribution (dcat:mediaType).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "application/json",
+     "application/ld+json",
+     "application/xml",
+     "application/pdf",
+     "application/zip",
+     "application/gzip",
+     "application/octet-stream",
+     "text/csv",
+     "text/plain",
+     "text/html",
+     "text/turtle",
+     "application/rdf+xml",
+     "application/geo+json",
+     "application/vnd.ms-excel",
+     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+     "application/vnd.apache.parquet"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.w3.org/TR/vocab-dcat-3/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/media-type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://www.w3.org/ns/dcat#mediaType"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-gui6g8hnwaj1p63gyvx8mahw"
+    }
+   ]
+  },
+  {
+   "@type": "XdFileType",
+   "@id": "sdc4:mc-ya8scgc5rb2s9dycq8td60qp",
+   "label": "Attachment Data",
+   "description": "The actual data of the attachment - a sequence of bytes, base64 encoded. Xt-EHR EHDS EHDSAttachment.data.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:anyURI",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/attachment-data"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAttachment-definitions.html#EHDSAttachment.data"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "XdCountType",
+   "@id": "sdc4:mc-rjlrij6lpaqerzjj86vhcv69",
+   "label": "Document Size",
+   "description": "The size of the document in bytes. FHIR DocumentReference.content.attachment.size.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "minInclusive": 0.0,
+    "units": {
+     "@type": "Units",
+     "label": "Bytes",
+     "@id": "sdc4:mc-jvn95638q2s7jj0mrgw390bl"
+    }
+   },
+   "dataType": "xsd:integer",
+   "semanticLinks": [
+    {
+     "predicate": "https://semanticdatacharter.com/ontology/sdc4-meta/hasUnit",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-jvn95638q2s7jj0mrgw390bl"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/document-size"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.content.attachment"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-zpblc088a3x4bkig1dbksu34"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-jvn95638q2s7jj0mrgw390bl",
+   "label": "Bytes",
+   "description": "Size in bytes.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "B"
+    ]
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.w3.org/TR/vocab-dcat-3/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/units-bytes"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://qudt.org/vocab/quantitykind/InformationEntropy"
+    }
+   ]
+  },
+  {
+   "@type": "XdLinkType",
+   "@id": "sdc4:mc-q75pzzv36or6dxgjrrbvmun5",
+   "label": "Code System: SNOMED CT",
+   "description": "The code system of a coded value, fixed: SNOMED CT (http://snomed.info/sct). FHIR Coding.system.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:anyURI",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/system-snomed"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://snomed.info/sct"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://snomed.info/sct"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-sx40i2ylihyo3thkm9cag2s5",
+   "label": "Document Event Type Code (SNOMED CT)",
+   "description": "The SNOMED CT code for: Categorisation of the event covered by the document (e.g. laboratory study types, imaging study types including modality, etc.). Selection of such tags or labels depends on the use case and agreement between data sharing parties. This meta-data element serves primarily for searching and filtering purposes. Coded in http://snomed.info/sct. Xt-EHR EHDS EHDSDischargeReport.header.eventType, EHDSDocument.header.eventType, EHDSImagingReport.header.eventType, EHDSLaboratoryReport.header.eventType and 1 more.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 100
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/document-event-type-snomed-code"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.eventType"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.eventType"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.header.eventType"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSPatientSummary-definitions.html#EHDSPatientSummary.header.eventType"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://snomed.info/sct"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.eventType"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-eo5tlfr0576ypknys5alvcn0",
+   "label": "Code Display Text",
+   "description": "The human-readable display of a coded value, as recorded with the code (FHIR Coding.display).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 500
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/code-display-text"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/datatypes-definitions.html#Coding.display"
+    }
+   ]
+  },
+  {
+   "@type": "XdTemporalType",
+   "@id": "sdc4:mc-mo4yehourgo1wm24rxld2k6d",
+   "label": "Document Period End",
+   "description": "The end of the period. FHIR DocumentReference.context.period.end.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:dateTime",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/document-period-end"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.context.period.end"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-zii6703sy7rjk3qsak6m4ero"
+    }
+   ]
+  },
+  {
+   "@type": "XdTemporalType",
+   "@id": "sdc4:mc-c8y3wwlmoc3qnkc2lbvjefrv",
+   "label": "Document Period Start",
+   "description": "The start of the period. FHIR DocumentReference.context.period.start.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:dateTime",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/document-period-start"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.context.period.start"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-xc72nn17fr35vukuujqu53mj"
+    }
+   ]
+  },
+  {
+   "@type": "XdLinkType",
+   "@id": "sdc4:mc-kar8kkxilj1e2fys88mg0dpc",
+   "label": "Code System: LOINC",
+   "description": "The code system of a coded value, fixed: LOINC (http://loinc.org). FHIR Coding.system.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:anyURI",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/system-loinc"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://loinc.org"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://loinc.org"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-itbe4hv32ckqckm0kocecomn",
+   "label": "Document Type Code (LOINC)",
+   "description": "The LOINC code for the kind of document. FHIR DocumentReference.type, coded in http://loinc.org.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "[0-9]{1,7}-[0-9]"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/document-type-code"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://loinc.org"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://loinc.org"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-lmwrlveob8rhesd4ccqznomh"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-lwcmz3awd5t5l3jkvka76bu2",
+   "label": "Lab Report Result Data Comments Interpretation And Recommendations",
+   "description": "Narrative Comments, such as a textual interpretation or advice accompanying the result report, for example. Xt-EHR EHDS EHDSLaboratoryReport.body.resultData.commentsInterpretationAndRecommendations.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 4000
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/lab-report-result-data-comments-interpretation-and-recommendations"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.body.resultData.commentsInterpretationAndRecommendations"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-h9mhxwnlowegqhvks6b5uhp3",
+   "label": "Sex For Clinical Use",
+   "description": "Sex parameter for clinical use - provides guidance on how a recipient should apply settings or reference ranges that are derived from observable information such as an organ inventory, recent hormone lab tests, genetic testing, menstrual status, obstetric history, etc. This property is intended for use in clinical decision making, and indicates that treatment or diagnostic tests should consider best practices associated with the relevant reference population. Values from http://terminology.hl7.org/CodeSystem/sex-parameter-for-clinical-use version 2.0.0, fetched 2026-11-18. Xt-EHR EHDS EHDSImagingReport.body.supportingInformation.sexForClinicalUse, EHDSLaboratoryReport.body.supportingInformation.sexForClinicalUse.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "female-typical",
+     "male-typical",
+     "specified"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://terminology.hl7.org/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/sex-for-clinical-use"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.body.supportingInformation.sexForClinicalUse"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://terminology.hl7.org/CodeSystem/sex-parameter-for-clinical-use"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.body.supportingInformation.sexForClinicalUse"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringListType",
+   "@id": "sdc4:mc-p8ivdj3b6yxk8rokp9ivv5tr",
+   "label": "Lab Report Supporting Information Other Supporting Information Reference",
+   "description": "Any other type of relevant supporting information Carried as the IRI of the referenced records, as a whitespace-delimited list (PRD decision 12). Xt-EHR EHDS EHDSLaboratoryReport.body.supportingInformation.otherSupportingInformation.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/lab-report-supporting-information-other-supporting-information-reference"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.body.supportingInformation.otherSupportingInformation"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-t39bamrgkmjaa5zwgsadxxge",
+   "label": "Practice Setting Code (SNOMED CT)",
+   "description": "The SNOMED CT code for the clinical specialty of the setting. FHIR DocumentReference.context.practiceSetting, coded in http://snomed.info/sct.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "[0-9]{6,18}"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/practice-setting-code"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.context.practiceSetting"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://snomed.info/sct"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://snomed.info/sct"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-z5dhf0t6c5mu0h5gaj5bp51n"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-h17egwljmrym3r8ortrqqjwd",
+   "label": "Identifier Value",
+   "description": "The identifier itself, as issued, in any identifier cluster.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "minLength": 1,
+    "maxLength": 100
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/identifier-value"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/identifier"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-kphe1er8qxy2dxqdwhpcfk3z",
+   "label": "Issuing Authority",
+   "description": "The organization or jurisdiction that issued an identifier, named as text.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 200
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/issuing-authority"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://schema.org/issuedBy"
+    }
+   ]
+  },
+  {
+   "@type": "PartyType",
+   "@id": "sdc4:mc-uficdtk6vpsgvpeyr1sevj9j",
+   "label": "Patient",
+   "description": "The patient of an SDCHealth example model (EHDS EHDSPatient).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "XdBooleanType",
+   "@id": "sdc4:mc-fnr5q1tfq42ez9jia9dqueho",
+   "label": "Deceased Indicator",
+   "description": "Whether the patient is deceased. FHIR Patient.deceasedBoolean.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "false"
+    ]
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/deceased-indicator"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/patient-definitions.html#Patient.deceasedBoolean"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-dw20tfw9y0qzzwlyhp6d9koz"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-gxzbm758mhdz51xd4bawlfhh",
+   "label": "Administrative Gender",
+   "description": "The gender a person is recorded as for administrative purposes. Not clinical or biological sex; see Sex (Recorded).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "male",
+     "female",
+     "other",
+     "unknown"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/administrative-gender"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/administrative-gender"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-tnyh2ude3db9smwfin0vai5h"
+    }
+   ]
+  },
+  {
+   "@type": "XdTemporalType",
+   "@id": "sdc4:mc-vnlhr9c3ykayyegumhb09snf",
+   "label": "Deceased Date",
+   "description": "The date and time of death. FHIR Patient.deceasedDateTime.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:dateTime",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/deceased-date"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/patient-definitions.html#Patient.deceasedDateTime"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-rqpcsr1pv41osf7sxwlr7lix"
+    }
+   ]
+  },
+  {
+   "@type": "XdTemporalType",
+   "@id": "sdc4:mc-js564tazefb6udqlh12rj04l",
+   "label": "Date of Birth",
+   "description": "The date a person was born.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:dateTime",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/date-of-birth"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://purl.obolibrary.org/obo/NCIT_C68615"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/birthDate"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-ncxxt7wgs7soxw7kbmapxvg3",
+   "label": "Address (Line 1)",
+   "description": "The first line of a street address: street number and name, or a post office box.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 200
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/address-line-1"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/streetAddress"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-l338k7nlvnq2am0owa19yxfc"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-a69l16mqaotn0py958oxahhz",
+   "label": "City Name",
+   "description": "The name of the city, town or village in an address. ISO 19160-4 element 16.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 100
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/city-name"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://def.isotc211.org/codeset/AddressComponentType/localityName"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/addressLocality"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-toysvef93azt57fgh8rwpd4b"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-u7rvm7j5oiuydsiwl0dglpl8",
+   "label": "Delivery Service",
+   "description": "A delivery service in place of a street address, with its type and number: a post office box, private bag or poste restante (PO Box 347, BP 84). ISO 19160-4 element 19.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 100
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.iso.org/standard/83470.html"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/delivery-service"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://www.wikidata.org/entity/Q1162282"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-w6nfslk6scfpenoewq3eqnev",
+   "label": "Postal Code",
+   "description": "The postal code of an address in any country, with no format constraint. Use US ZIP Code or Canada Postal Code where the format is known. ISO 19160-4 element 13.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 15
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/postal-code"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://def.isotc211.org/codeset/AddressComponentType/postcode"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/postalCode"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-gf841eedvv6cjiegs934srai"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-gzfu10juglu35llepko2huo9",
+   "label": "Premises Identifier",
+   "description": "The number or name that identifies a property on its thoroughfare, such as a house number (23b, 15 bis). ISO 19160-4 element 24.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 50
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.iso.org/standard/83470.html"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/premises-identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://www.wikidata.org/entity/Q1413235"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-zzvw3p4x9xcxo6q1xqymvrct",
+   "label": "Thoroughfare",
+   "description": "The street, road or other way the premises is on, written whole with its type and any directional qualifier (Rue de l'Église, Eiswaldstraße, N Main St). ISO 19160-4 element 21.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 150
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.iso.org/standard/83470.html"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/thoroughfare"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://def.isotc211.org/codeset/AddressComponentType/thoroughfareName"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-ml1y0608by1jakreu950oqb7",
+   "label": "Address Type",
+   "description": "Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO Boxes and care-of addresses). Most addresses are both. Values from http://hl7.org/fhir/address-type version 5.0.0, fetched 2026-11-18. Xt-EHR EHDS EHDSAddress.type.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "postal",
+     "physical",
+     "both"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R5/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/address-type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://hl7.org/fhir/address-type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAddress-definitions.html#EHDSAddress.type"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-b25dj42zxhm19pih328ga8pl",
+   "label": "Address Use",
+   "description": "The purpose of an address.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "home",
+     "work",
+     "temp",
+     "old",
+     "billing"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/address-use"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/address-use"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-offwpyuzrbirkryvvbzqqg31"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-gll1lakps0m1mgas18flfjwq",
+   "label": "Country Name",
+   "description": "The name of the country, territory or area of geopolitical interest an address is in, written as it appears on mail. ISO 19160-4 element 14.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 100
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.iso.org/standard/83470.html"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/country-name"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://def.isotc211.org/codeset/AddressComponentType/countryName"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-f2jicaigehz7xmwcp1gm5gh0",
+   "label": "Country Code ISO 3166",
+   "description": "The ISO 3166-1 alpha-2 code of a country or territory: the complete list of 249 officially assigned codes. Each value is defined by its Wikidata entity.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "AD",
+     "AE",
+     "AF",
+     "AG",
+     "AI",
+     "AL",
+     "AM",
+     "AO",
+     "AQ",
+     "AR",
+     "AS",
+     "AT",
+     "AU",
+     "AW",
+     "AX",
+     "AZ",
+     "BA",
+     "BB",
+     "BD",
+     "BE",
+     "BF",
+     "BG",
+     "BH",
+     "BI",
+     "BJ",
+     "BL",
+     "BM",
+     "BN",
+     "BO",
+     "BQ",
+     "BR",
+     "BS",
+     "BT",
+     "BV",
+     "BW",
+     "BY",
+     "BZ",
+     "CA",
+     "CC",
+     "CD",
+     "CF",
+     "CG",
+     "CH",
+     "CI",
+     "CK",
+     "CL",
+     "CM",
+     "CN",
+     "CO",
+     "CR",
+     "CU",
+     "CV",
+     "CW",
+     "CX",
+     "CY",
+     "CZ",
+     "DE",
+     "DJ",
+     "DK",
+     "DM",
+     "DO",
+     "DZ",
+     "EC",
+     "EE",
+     "EG",
+     "EH",
+     "ER",
+     "ES",
+     "ET",
+     "FI",
+     "FJ",
+     "FK",
+     "FM",
+     "FO",
+     "FR",
+     "GA",
+     "GB",
+     "GD",
+     "GE",
+     "GF",
+     "GG",
+     "GH",
+     "GI",
+     "GL",
+     "GM",
+     "GN",
+     "GP",
+     "GQ",
+     "GR",
+     "GS",
+     "GT",
+     "GU",
+     "GW",
+     "GY",
+     "HK",
+     "HM",
+     "HN",
+     "HR",
+     "HT",
+     "HU",
+     "ID",
+     "IE",
+     "IL",
+     "IM",
+     "IN",
+     "IO",
+     "IQ",
+     "IR",
+     "IS",
+     "IT",
+     "JE",
+     "JM",
+     "JO",
+     "JP",
+     "KE",
+     "KG",
+     "KH",
+     "KI",
+     "KM",
+     "KN",
+     "KP",
+     "KR",
+     "KW",
+     "KY",
+     "KZ",
+     "LA",
+     "LB",
+     "LC",
+     "LI",
+     "LK",
+     "LR",
+     "LS",
+     "LT",
+     "LU",
+     "LV",
+     "LY",
+     "MA",
+     "MC",
+     "MD",
+     "ME",
+     "MF",
+     "MG",
+     "MH",
+     "MK",
+     "ML",
+     "MM",
+     "MN",
+     "MO",
+     "MP",
+     "MQ",
+     "MR",
+     "MS",
+     "MT",
+     "MU",
+     "MV",
+     "MW",
+     "MX",
+     "MY",
+     "MZ",
+     "NA",
+     "NC",
+     "NE",
+     "NF",
+     "NG",
+     "NI",
+     "NL",
+     "NO",
+     "NP",
+     "NR",
+     "NU",
+     "NZ",
+     "OM",
+     "PA",
+     "PE",
+     "PF",
+     "PG",
+     "PH",
+     "PK",
+     "PL",
+     "PM",
+     "PN",
+     "PR",
+     "PS",
+     "PT",
+     "PW",
+     "PY",
+     "QA",
+     "RE",
+     "RO",
+     "RS",
+     "RU",
+     "RW",
+     "SA",
+     "SB",
+     "SC",
+     "SD",
+     "SE",
+     "SG",
+     "SH",
+     "SI",
+     "SJ",
+     "SK",
+     "SL",
+     "SM",
+     "SN",
+     "SO",
+     "SR",
+     "SS",
+     "ST",
+     "SV",
+     "SX",
+     "SY",
+     "SZ",
+     "TC",
+     "TD",
+     "TF",
+     "TG",
+     "TH",
+     "TJ",
+     "TK",
+     "TL",
+     "TM",
+     "TN",
+     "TO",
+     "TR",
+     "TT",
+     "TV",
+     "TW",
+     "TZ",
+     "UA",
+     "UG",
+     "UM",
+     "US",
+     "UY",
+     "UZ",
+     "VA",
+     "VC",
+     "VE",
+     "VG",
+     "VI",
+     "VN",
+     "VU",
+     "WF",
+     "WS",
+     "YE",
+     "YT",
+     "ZA",
+     "ZM",
+     "ZW"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.iso.org/iso-3166-country-codes.html"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/country-code-iso-3166"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://purl.obolibrary.org/obo/NCIT_C20108"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/addressCountry"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-qm8gmwfrxqbisqbm0fgd4nyz"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-l9l169co9r23e6fftpvdz4e3",
+   "label": "Given Name (Person)",
+   "description": "The name given to a person at birth or naming, distinguishing them from others in the same family. Also called first name or forename.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "minLength": 1,
+    "maxLength": 100
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/given-name-person"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://www.wikidata.org/entity/Q202444"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/givenName"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-kfyzf8u8gdafcpt5kfh2qg3q"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-dp1zp58fx23u0yrs3j9ogqxt",
+   "label": "Name As Written",
+   "description": "A person's name exactly as the person writes it, kept alongside its parts because splitting a name into parts can lose how it is written.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 300
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/name-as-written"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://www.wikidata.org/entity/Q1071027"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-yahxccv0l1z6ykjxayzkdlkq",
+   "label": "Name Prefix",
+   "description": "An honorific or title placed before a person's name, such as Mr., Ms., Dr. or Prof.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 20
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/name-prefix"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/honorificPrefix"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-u9x2b6frfi0rbydeoncijfp1"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-l509t0zajfl5atns64d5kl97",
+   "label": "Name Suffix",
+   "description": "A suffix placed after a person's name, such as Jr., Sr., III, PhD, MD or Esq.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 20
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/name-suffix"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/honorificSuffix"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-zldtbpvyouzi7t1dorc07rb3"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-jc1lfk3ovt6l8frhxvx8b669",
+   "label": "Surname (Person)",
+   "description": "The family name of a person, shared with other members of the family. Also called last name or family name.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "minLength": 1,
+    "maxLength": 100
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/surname-person"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://www.wikidata.org/entity/Q101352"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/familyName"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-v8jgjo2sml12jo7zrb8swoxi"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-bfqinvm7qrgi9jjw1i637moh",
+   "label": "Name Use",
+   "description": "The purpose or context of a person's name.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "usual",
+     "official",
+     "temp",
+     "nickname",
+     "anonymous",
+     "old",
+     "maiden"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/name-use"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/name-use"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-zlg3riiu515tsg0mdkx5brkc"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-eg635xgsjvipb1rxmaqzt7pv",
+   "label": "Driver License Number",
+   "description": "A driver licence or identification card number as issued. The format varies by jurisdiction; alphanumeric, four to twenty-five characters.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "minLength": 4,
+    "maxLength": 25
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/driver-license-number"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://terminology.hl7.org/CodeSystem/v2-0203#DL"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-ywxgtz6f7o1i5w5o5lgp8qcb"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-g6b7o2z5fdo71vv4t4vv3kfl",
+   "label": "Passport Number",
+   "description": "A passport number as issued. The format varies by issuing country; alphanumeric, five to twenty characters.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "minLength": 5,
+    "maxLength": 20
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/passport-number"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://terminology.hl7.org/CodeSystem/v2-0203#PPN"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-coz3ptgsrztlci5fzhssf1io"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-b77u36g6lormbn7jfls25h5f",
+   "label": "Social Security Number",
+   "description": "A United States Social Security Number in the form 123-45-6789.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "\\d{3}-\\d{2}-\\d{4}"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/social-security-number"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://terminology.hl7.org/CodeSystem/v2-0203#SS"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.ssa.gov/"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-afhv5gxl5ikim5a5vxrhymug"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-h2pd0ns7lx2vzey41z6ggt8r",
+   "label": "Person Identifier Type",
+   "description": "The kind of identifier held in a Person Identifier, from the HL7 v2 table 0203 identifier types.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "SS",
+     "PPN",
+     "DL",
+     "MR",
+     "NI",
+     "U"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/person-identifier-type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://terminology.hl7.org/CodeSystem/v2-0203"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-q922mqaon3yn5zlwf2bszf28",
+   "label": "Email Address",
+   "description": "An email address. The pattern requires a local part, an at sign and a domain with a dot; RFC 5321 limits the whole address to 254 characters.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": ".+@.+\\..+"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/email-address"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.rfc-editor.org/rfc/rfc5321"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/email"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-uvl0tla5aocdzsdrby589b6l"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-zpfwg52r88j6jdypj7rg71ke",
+   "label": "Phone Number",
+   "description": "A telephone number, optionally starting with a plus sign and country code, with digits, spaces, hyphens and parentheses allowed.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "\\+?\\d[\\d\\s\\-\\(\\)]{6,18}"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.itu.int/rec/T-REC-E.164"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/phone-number"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/telephone"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-ma9dwgbrvprfyypwldni2qfx"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-miqo30r5b554nyj7ubryw43x",
+   "label": "Contact Method",
+   "description": "The communication channel of a contact point.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "phone",
+     "fax",
+     "email",
+     "pager",
+     "url",
+     "sms",
+     "other"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/contact-method"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/contact-point-system"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-tf5wlywn6meurn6o1sz8yuaq"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-vmruk4j9y1orvvz8cwafrax5",
+   "label": "Contact Use",
+   "description": "The purpose of a contact point.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "home",
+     "work",
+     "temp",
+     "old",
+     "mobile"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/contact-use"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/contact-point-use"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-klgho4tqvbu5iyt6zzx1ioi9"
+    }
+   ]
+  },
+  {
+   "@type": "PartyType",
+   "@id": "sdc4:mc-qau8mx32a2d0v54jrc2q7y9y",
+   "label": "Author",
+   "description": "The author of an SDCHealth example model (EHDS EHDSHealthProfessional). The EHDS role allows EHDSHealthProfessional, EHDSOrganisation or EHDSDevice; a copy of this Party can take another of those clusters as its details.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "ParticipationType",
+   "@id": "sdc4:mc-e7jes8an7n8t58qyabk1nnm2",
+   "label": "Attester Participation",
+   "description": "The attester of the record, as a Participation whose function is fixed to 'attester' (PRD decision 13).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "PartyType",
+   "@id": "sdc4:mc-p85634qf42iq66vkrcd3mrtd",
+   "label": "Attester",
+   "description": "The attester of an SDCHealth example model (EHDS EHDSHealthProfessional). The EHDS role allows EHDSHealthProfessional or EHDSDevice; a copy of this Party can take another of those clusters as its details.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-z0gm7qs3bvdt2s1tie2gcrue",
+   "label": "Participation Function (Attester)",
+   "description": "The function of the Party in a model's Participation (SDC ParticipationType.function), fixed to the value 'attester'. Document attestation details Xt-EHR EHDS EHDSDischargeReport.header.attestation, EHDSDischargeReport.header.attestation.attester[x], EHDSDischargeReport.header.attestation.datetime, EHDSDocument.header.attestation and 11 more.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "attester"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/participation-function-attester"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.attestation.attester%5Bx%5D"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.attestation.datetime"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.attestation.attester%5Bx%5D"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.attestation"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.attestation.datetime"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.attestation.attester%5Bx%5D"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.attestation.datetime"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.attestation"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.header.attestation.attester%5Bx%5D"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.header.attestation.datetime"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.header.attestation"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.attestation"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ParticipationType",
+   "@id": "sdc4:mc-k6j6ln7pcgy0n11in45xtd69",
+   "label": "Custodian Participation",
+   "description": "The custodian of the record, as a Participation whose function is fixed to 'custodian' (PRD decision 13).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "PartyType",
+   "@id": "sdc4:mc-g0mbwnno4tt2vmvyx8db0p7n",
+   "label": "Custodian",
+   "description": "The custodian of an SDCHealth example model (EHDS EHDSOrganisation).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-rtx15cec5b5tyta3jfwunoqm",
+   "label": "Organisation Part Of",
+   "description": "The organisation of which this organisation forms a part Carried as the IRI of the referenced record (PRD decision 12). Xt-EHR EHDS EHDSOrganisation.partOf.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 2048
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/organisation-part-of"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSOrganisation-definitions.html#EHDSOrganisation.partOf"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-xcn8r67fg7soty17homzok44",
+   "label": "Organization Name",
+   "description": "The legal or registered name of an organization.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "minLength": 1,
+    "maxLength": 200
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/organization-name"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://schema.org/"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://purl.obolibrary.org/obo/NCIT_C93874"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://schema.org/legalName"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-wx5x3zn4hmo7qjtzvwz5nhrb",
+   "label": "Organization Type",
+   "description": "The kind of organization. FHIR Organization.type; Organization type, version 4.0.1.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "prov",
+     "dept",
+     "team",
+     "govt",
+     "ins",
+     "pay",
+     "edu",
+     "reli",
+     "crs",
+     "cg",
+     "bus",
+     "other"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/organization-type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://hl7.org/fhir/R4/organization-definitions.html#Organization.type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://terminology.hl7.org/CodeSystem/organization-type"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-lu0yyegus4b9jqzhdi9zlklk"
+    }
+   ]
+  },
+  {
+   "@type": "XdTokenType",
+   "@id": "sdc4:mc-y9mgb964lwsstvf3w06vkkep",
+   "label": "Organization Identifier Type",
+   "description": "The kind of identifier held in an Organization Identifier: tax identifier and NPI from HL7 v2 table 0203; DUNS and LEI from their issuers.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "enumeration": [
+     "TAX",
+     "NPI",
+     "DUNS",
+     "LEI",
+     "U"
+    ]
+   },
+   "dataType": "xsd:token",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/organization-identifier-type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://terminology.hl7.org/CodeSystem/v2-0203"
+    }
+   ]
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-mabd8hws4owmtyafxr9mbw6q",
+   "label": "Participation Function (Custodian)",
+   "description": "The function of the Party in a model's Participation (SDC ParticipationType.function), fixed to the value 'custodian'. Organisation that is in charge of maintaining the document/report. Xt-EHR EHDS EHDSDischargeReport.header.custodian, EHDSDocument.header.custodian, EHDSImagingReport.header.custodian, EHDSLaboratoryReport.header.custodian and 1 more.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "custodian"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/participation-function-custodian"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.custodian"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.custodian"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.header.custodian"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSPatientSummary-definitions.html#EHDSPatientSummary.header.custodian"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.custodian"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ParticipationType",
+   "@id": "sdc4:mc-q5g9nqjxzj0su0rpn8icgqjc",
+   "label": "Intended Recipient Participation",
+   "description": "The intended recipient of the record, as a Participation whose function is fixed to 'intended recipient' (PRD decision 13).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "PartyType",
+   "@id": "sdc4:mc-zh6r23inwrh3l5fgdy6umc7y",
+   "label": "Intended Recipient",
+   "description": "The intended recipient of an SDCHealth example model (EHDS EHDSPatient). The EHDS role allows EHDSPatient, EHDSRelatedPerson, EHDSHealthProfessional, EHDSOrganisation or EHDSDevice; a copy of this Party can take another of those clusters as its details.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-w61v22etfzs4ny4khfzksoqd",
+   "label": "Participation Function (Intended Recipient)",
+   "description": "The function of the Party in a model's Participation (SDC ParticipationType.function), fixed to the value 'intended recipient'. Intended recipient(s) of the information, i.e. a person or organisation that should be notified or be aware of the content. This element is used to indicate explicit communication intent and does not represent routine storage or passive availability of information (e.g. in portals). Listing an intended recipient does not create an assignment or responsibility. Xt-EHR EHDS EHDSDischargeReport.header.intendedRecipient[x], EHDSImagingReport.header.intendedRecipient[x], EHDSLaboratoryReport.header.intendedRecipient[x].",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "intended recipient"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/participation-function-intended-recipient"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.intendedRecipient%5Bx%5D"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.header.intendedRecipient%5Bx%5D"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.intendedRecipient%5Bx%5D"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ParticipationType",
+   "@id": "sdc4:mc-op04cbyj14qocu2u38nljhk8",
+   "label": "Order Placer Participation",
+   "description": "The order placer of the record, as a Participation whose function is fixed to 'order placer' (PRD decision 13).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "PartyType",
+   "@id": "sdc4:mc-z7v3neussnbkrnz2ikasjgiz",
+   "label": "Order Placer",
+   "description": "The order placer of an SDCHealth example model (EHDS EHDSHealthProfessional). The EHDS role allows EHDSHealthProfessional, EHDSOrganisation or EHDSPatient; a copy of this Party can take another of those clusters as its details.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-k1ass4fprtm6o3i1nmjhfd78",
+   "label": "Participation Function (Order Placer)",
+   "description": "The function of the Party in a model's Participation (SDC ParticipationType.function), fixed to the value 'order placer'. The person/organisation \"authorised\" to place the order. Order placer could be either a health professional, health professional organisation or the patient himself. Xt-EHR EHDS EHDSImagingReport.body.orderInformation.orderPlacer[x], EHDSLaboratoryReport.body.orderInformation.orderPlacer[x].",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "pattern": "order placer"
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/participation-function-order-placer"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.body.orderInformation.orderPlacer%5Bx%5D"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.body.orderInformation.orderPlacer%5Bx%5D"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "AttestationType",
+   "@id": "sdc4:mc-q1yia3n12i53ly5mdjldocw9",
+   "label": "Legal Authentication",
+   "description": "The one attestation of an SDCHealth document record, its legal authentication (EHDS header.legalAuthentication; PRD decision 14). Other EHDS attesters are Participations.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "XdStringType",
+   "@id": "sdc4:mc-scp5mi7ynr4x0g1zo1p6h9jc",
+   "label": "Attestation Reason",
+   "description": "The reason or basis for the attestation (SDC AttestationType.reason; FHIR Provenance.signature reason).",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "constraints": {
+    "maxLength": 1000
+   },
+   "dataType": "xsd:string",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://w3id.org/dpv"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/attestation-reason"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://purl.org/dc/terms/description"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-pcy6i072eo20iiuygfrvu0sy"
+    }
+   ]
+  },
+  {
+   "@type": "PartyType",
+   "@id": "sdc4:mc-j9hm5g071ymwa2vau6kb3jh4",
+   "label": "Legal Authenticator",
+   "description": "The legal authenticator of an SDCHealth example model (EHDS EHDSHealthProfessional). The EHDS role allows EHDSHealthProfessional or EHDSOrganisation; a copy of this Party can take another of those clusters as its details.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:string"
+  },
+  {
+   "@type": "XdOrdinalType",
+   "@id": "sdc4:mc-a7ej4pnaqmtlz91t9kjxtfuz",
+   "label": "Clinical Document: amended entered in error states",
+   "description": "States of the amended entered in error path of the Clinical Document workflow, in order: amended, entered-in-error. A transition is legal between adjacent states. The FHIR Composition status lifecycle: preliminary, final, amended, entered in error.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:integer",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document-amended-entered-in-error-states"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    },
+    {
+     "predicate": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+     "object": "http://www.w3.org/2005/07/scxml"
+    }
+   ]
+  },
+  {
+   "@type": "XdOrdinalType",
+   "@id": "sdc4:mc-xlgg9ghk6v83c31udln04y6b",
+   "label": "Clinical Document: final entered in error states",
+   "description": "States of the final entered in error path of the Clinical Document workflow, in order: final, entered-in-error. A transition is legal between adjacent states. The FHIR Composition status lifecycle: preliminary, final, amended, entered in error.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:integer",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document-final-entered-in-error-states"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    },
+    {
+     "predicate": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+     "object": "http://www.w3.org/2005/07/scxml"
+    }
+   ]
+  },
+  {
+   "@type": "XdOrdinalType",
+   "@id": "sdc4:mc-j9bszbpsly8h6ky9kr8hbw03",
+   "label": "Clinical Document: Main path states",
+   "description": "States of the Main path path of the Clinical Document workflow, in order: preliminary, final, amended. A transition is legal between adjacent states. The FHIR Composition status lifecycle: preliminary, final, amended, entered in error.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:integer",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document-main-states"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    },
+    {
+     "predicate": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+     "object": "http://www.w3.org/2005/07/scxml"
+    }
+   ]
+  },
+  {
+   "@type": "XdOrdinalType",
+   "@id": "sdc4:mc-fn6chf5km99sxb5xq446kj03",
+   "label": "Clinical Document: preliminary entered in error states",
+   "description": "States of the preliminary entered in error path of the Clinical Document workflow, in order: preliminary, entered-in-error. A transition is legal between adjacent states. The FHIR Composition status lifecycle: preliminary, final, amended, entered in error.",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "dataType": "xsd:integer",
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document-preliminary-entered-in-error-states"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    },
+    {
+     "predicate": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+     "object": "http://www.w3.org/2005/07/scxml"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-qnocwj0gevwczd88of20iucv",
+   "label": "Laboratory Report",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-ha7fcqnntpjsk6f7ypx1arb9"
+    },
+    {
+     "@id": "sdc4:mc-gyiphdcqi092b36zhajh616y"
+    },
+    {
+     "@id": "sdc4:mc-hdkno158ziu22fj3w1adfssj"
+    },
+    {
+     "@id": "sdc4:mc-kclb4dxly9p82dbocdd4xswk"
+    },
+    {
+     "@id": "sdc4:mc-v74c8xmwjn98husagef42znx"
+    },
+    {
+     "@id": "sdc4:mc-qijd1k13ac3jr70w0q8rwnnd"
+    },
+    {
+     "@id": "sdc4:mc-nieu1e3llgra1v66p2x8jnwu"
+    },
+    {
+     "@id": "sdc4:mc-wpdxubv2w0me9ld80qdorjl2"
+    },
+    {
+     "@id": "sdc4:mc-b5v4p5ju74ugnzyt9bh98398"
+    },
+    {
+     "@id": "sdc4:mc-hba1rwqj6zyxj4l3xlpb4dea"
+    },
+    {
+     "@id": "sdc4:mc-g3m0lzwvs18eckx4wsm6av5d"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/lab-report"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.1324"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.2191"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-ha7fcqnntpjsk6f7ypx1arb9",
+   "label": "Attachment",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-fo6qinkjksovtif39psfofav"
+    },
+    {
+     "@id": "sdc4:mc-x5u6952free06snjx23jkx0x"
+    },
+    {
+     "@id": "sdc4:mc-nsapfk3gom5sc51bvfo1nkns"
+    },
+    {
+     "@id": "sdc4:mc-ya8scgc5rb2s9dycq8td60qp"
+    },
+    {
+     "@id": "sdc4:mc-rjlrij6lpaqerzjj86vhcv69"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/attachment"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.4514"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAttachment-definitions.html#EHDSAttachment"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-gyiphdcqi092b36zhajh616y",
+   "label": "Document Event Type (SNOMED CT)",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-q75pzzv36or6dxgjrrbvmun5"
+    },
+    {
+     "@id": "sdc4:mc-sx40i2ylihyo3thkm9cag2s5"
+    },
+    {
+     "@id": "sdc4:mc-eo5tlfr0576ypknys5alvcn0"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/document-event-type-snomed"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://snomed.info/sct"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.eventType"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.eventType"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.header.eventType"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSPatientSummary-definitions.html#EHDSPatientSummary.header.eventType"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.eventType"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-hdkno158ziu22fj3w1adfssj",
+   "label": "Document Period",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-mo4yehourgo1wm24rxld2k6d"
+    },
+    {
+     "@id": "sdc4:mc-c8y3wwlmoc3qnkc2lbvjefrv"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/document-period"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.context.period"
+    },
+    {
+     "predicate": "http://www.w3.org/ns/prov#wasRevisionOf",
+     "object": "https://semanticdatacharter.com/ns/sdc4/mc-sfhggc2riveqd6f0hibzpwtj"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-kclb4dxly9p82dbocdd4xswk",
+   "label": "Document Type (LOINC)",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-kar8kkxilj1e2fys88mg0dpc"
+    },
+    {
+     "@id": "sdc4:mc-eo5tlfr0576ypknys5alvcn0"
+    },
+    {
+     "@id": "sdc4:mc-itbe4hv32ckqckm0kocecomn"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/document-type"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://loinc.org"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.type"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-v74c8xmwjn98husagef42znx",
+   "label": "Lab Report Body",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-czbltubl2gjbsciem7ng51u0"
+    },
+    {
+     "@id": "sdc4:mc-h7i5qnnw17xib45b3zzxdcz8"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/lab-report-body"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.body"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-czbltubl2gjbsciem7ng51u0",
+   "label": "Lab Report Result Data Section",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-lwcmz3awd5t5l3jkvka76bu2"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/lab-report-result-data-section"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.body.resultData"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-h7i5qnnw17xib45b3zzxdcz8",
+   "label": "Lab Report Supporting Information Section",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-h9mhxwnlowegqhvks6b5uhp3"
+    },
+    {
+     "@id": "sdc4:mc-p8ivdj3b6yxk8rokp9ivv5tr"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/lab-report-supporting-information-section"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSLaboratoryReport-definitions.html#EHDSLaboratoryReport.body.supportingInformation"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-qijd1k13ac3jr70w0q8rwnnd",
+   "label": "Practice Setting (SNOMED CT)",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-q75pzzv36or6dxgjrrbvmun5"
+    },
+    {
+     "@id": "sdc4:mc-eo5tlfr0576ypknys5alvcn0"
+    },
+    {
+     "@id": "sdc4:mc-t39bamrgkmjaa5zwgsadxxge"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/fhir/practice-setting"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://snomed.info/sct"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/R4/documentreference-definitions.html#DocumentReference.context.practiceSetting"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-nieu1e3llgra1v66p2x8jnwu",
+   "label": "Record Identifier",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-h17egwljmrym3r8ortrqqjwd"
+    },
+    {
+     "@id": "sdc4:mc-kphe1er8qxy2dxqdwhpcfk3z"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/record-identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAdvanceDirective-definitions.html#EHDSAdvanceDirective.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAlert-definitions.html#EHDSAlert.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAllergyIntolerance-definitions.html#EHDSAllergyIntolerance.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSCarePlan-definitions.html#EHDSCarePlan.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSCurrentPregnancy-definitions.html#EHDSCurrentPregnancy.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDataSet-definitions.html#EHDSDataSet.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDeviceUse-definitions.html#EHDSDeviceUse.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDischargeReport-definitions.html#EHDSDischargeReport.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSDocument-definitions.html#EHDSDocument.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSEncounter-definitions.html#EHDSEncounter.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSImagingReport-definitions.html#EHDSImagingReport.header.identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSCondition-definitions.html#EHDSCondition.header.identifier"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-k2ph54lwfdtlrm7p5gw4s3tt",
+   "label": "Patient",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-omhsrouda4mt73j1t1fzakqz"
+    },
+    {
+     "@id": "sdc4:mc-g50zuf7amwobbgifx7o52i5l"
+    },
+    {
+     "@id": "sdc4:mc-xxvvs7fuoz5lrz44128su7kg"
+    },
+    {
+     "@id": "sdc4:mc-lv6uk4agn7as0er1bely65oi"
+    },
+    {
+     "@id": "sdc4:mc-fnr5q1tfq42ez9jia9dqueho"
+    },
+    {
+     "@id": "sdc4:mc-gxzbm758mhdz51xd4bawlfhh"
+    },
+    {
+     "@id": "sdc4:mc-vnlhr9c3ykayyegumhb09snf"
+    },
+    {
+     "@id": "sdc4:mc-js564tazefb6udqlh12rj04l"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/patient"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.5358"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.821"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSPatient-definitions.html#EHDSPatient"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-omhsrouda4mt73j1t1fzakqz",
+   "label": "Address",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-u0rvm9o99w3ked99wbsjyqcj"
+    },
+    {
+     "@id": "sdc4:mc-ncxxt7wgs7soxw7kbmapxvg3"
+    },
+    {
+     "@id": "sdc4:mc-a69l16mqaotn0py958oxahhz"
+    },
+    {
+     "@id": "sdc4:mc-u7rvm7j5oiuydsiwl0dglpl8"
+    },
+    {
+     "@id": "sdc4:mc-w6nfslk6scfpenoewq3eqnev"
+    },
+    {
+     "@id": "sdc4:mc-gzfu10juglu35llepko2huo9"
+    },
+    {
+     "@id": "sdc4:mc-zzvw3p4x9xcxo6q1xqymvrct"
+    },
+    {
+     "@id": "sdc4:mc-ml1y0608by1jakreu950oqb7"
+    },
+    {
+     "@id": "sdc4:mc-b25dj42zxhm19pih328ga8pl"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/address"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.273"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSAddress-definitions.html#EHDSAddress"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-u0rvm9o99w3ked99wbsjyqcj",
+   "label": "Country",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-gll1lakps0m1mgas18flfjwq"
+    },
+    {
+     "@id": "sdc4:mc-f2jicaigehz7xmwcp1gm5gh0"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.iso.org/standard/83470.html"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/country"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://www.wikidata.org/entity/Q6256"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-g50zuf7amwobbgifx7o52i5l",
+   "label": "Human Name",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-l9l169co9r23e6fftpvdz4e3"
+    },
+    {
+     "@id": "sdc4:mc-dp1zp58fx23u0yrs3j9ogqxt"
+    },
+    {
+     "@id": "sdc4:mc-yahxccv0l1z6ykjxayzkdlkq"
+    },
+    {
+     "@id": "sdc4:mc-l509t0zajfl5atns64d5kl97"
+    },
+    {
+     "@id": "sdc4:mc-jc1lfk3ovt6l8frhxvx8b669"
+    },
+    {
+     "@id": "sdc4:mc-bfqinvm7qrgi9jjw1i637moh"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/human-name"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.5359"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSHumanName-definitions.html#EHDSHumanName"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-xxvvs7fuoz5lrz44128su7kg",
+   "label": "Person Identifier",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-eg635xgsjvipb1rxmaqzt7pv"
+    },
+    {
+     "@id": "sdc4:mc-h17egwljmrym3r8ortrqqjwd"
+    },
+    {
+     "@id": "sdc4:mc-kphe1er8qxy2dxqdwhpcfk3z"
+    },
+    {
+     "@id": "sdc4:mc-g6b7o2z5fdo71vv4t4vv3kfl"
+    },
+    {
+     "@id": "sdc4:mc-b77u36g6lormbn7jfls25h5f"
+    },
+    {
+     "@id": "sdc4:mc-f2jicaigehz7xmwcp1gm5gh0"
+    },
+    {
+     "@id": "sdc4:mc-h2pd0ns7lx2vzey41z6ggt8r"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/person-identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/StructureDefinition/Identifier"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-lv6uk4agn7as0er1bely65oi",
+   "label": "Telecom",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-q922mqaon3yn5zlwf2bszf28"
+    },
+    {
+     "@id": "sdc4:mc-zpfwg52r88j6jdypj7rg71ke"
+    },
+    {
+     "@id": "sdc4:mc-miqo30r5b554nyj7ubryw43x"
+    },
+    {
+     "@id": "sdc4:mc-vmruk4j9y1orvvz8cwafrax5"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/telecom"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSTelecom-definitions.html#EHDSTelecom"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-geuvvqy9qol4t10s231a4ezo",
+   "label": "Health Professional",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-omhsrouda4mt73j1t1fzakqz"
+    },
+    {
+     "@id": "sdc4:mc-g50zuf7amwobbgifx7o52i5l"
+    },
+    {
+     "@id": "sdc4:mc-xxvvs7fuoz5lrz44128su7kg"
+    },
+    {
+     "@id": "sdc4:mc-lv6uk4agn7as0er1bely65oi"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/health-professional"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.5358"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSHealthProfessional-definitions.html#EHDSHealthProfessional"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-uga41hbcbb4qdeki3e1e19kn",
+   "label": "Organisation",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-omhsrouda4mt73j1t1fzakqz"
+    },
+    {
+     "@id": "sdc4:mc-mdxhqrhcerkkdn66hrjex66w"
+    },
+    {
+     "@id": "sdc4:mc-lv6uk4agn7as0er1bely65oi"
+    },
+    {
+     "@id": "sdc4:mc-rtx15cec5b5tyta3jfwunoqm"
+    },
+    {
+     "@id": "sdc4:mc-xcn8r67fg7soty17homzok44"
+    },
+    {
+     "@id": "sdc4:mc-wx5x3zn4hmo7qjtzvwz5nhrb"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/sdchealth/organisation"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://ckm.openehr.org/ckm/archetypes/1013.1.371"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/en/StructureDefinition-EHDSOrganisation-definitions.html#EHDSOrganisation"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "https://www.xt-ehr.eu/fhir/models/1.0.0/"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-mdxhqrhcerkkdn66hrjex66w",
+   "label": "Organization Identifier",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-h17egwljmrym3r8ortrqqjwd"
+    },
+    {
+     "@id": "sdc4:mc-kphe1er8qxy2dxqdwhpcfk3z"
+    },
+    {
+     "@id": "sdc4:mc-y9mgb964lwsstvf3w06vkkep"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/default/organization-identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "https://schema.org/identifier"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/StructureDefinition/Identifier"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-n92zyhs2luqrhr4hw483kh6m",
+   "label": "Clinical Document Workflow",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-vzpbjofdabf9svpjrh8j3t46"
+    },
+    {
+     "@id": "sdc4:mc-f9yfphxmgigcylfeft0fhopq"
+    },
+    {
+     "@id": "sdc4:mc-juz8aefyzd094djy933dfbtb"
+    },
+    {
+     "@id": "sdc4:mc-faglh5vlrb4dl5qqam6d34xz"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#closeMatch",
+     "object": "http://www.w3.org/2005/01/wf/flow#State"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-vzpbjofdabf9svpjrh8j3t46",
+   "label": "Clinical Document: amended entered in error",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-a7ej4pnaqmtlz91t9kjxtfuz"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document-amended-entered-in-error"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-f9yfphxmgigcylfeft0fhopq",
+   "label": "Clinical Document: final entered in error",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-xlgg9ghk6v83c31udln04y6b"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document-final-entered-in-error"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-juz8aefyzd094djy933dfbtb",
+   "label": "Clinical Document: Main path",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-j9bszbpsly8h6ky9kr8hbw03"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document-main"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    }
+   ]
+  },
+  {
+   "@type": "ClusterType",
+   "@id": "sdc4:mc-faglh5vlrb4dl5qqam6d34xz",
+   "label": "Clinical Document: preliminary entered in error",
+   "cardinality": {
+    "minOccurs": 0,
+    "maxOccurs": 1
+   },
+   "contains": [
+    {
+     "@id": "sdc4:mc-fn6chf5km99sxb5xq446kj03"
+    }
+   ],
+   "semanticLinks": [
+    {
+     "predicate": "http://purl.org/dc/terms/publisher",
+     "object": "https://axius-sdc.com"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/source",
+     "object": "http://hl7.org/fhir/R4/"
+    },
+    {
+     "predicate": "http://purl.org/dc/terms/identifier",
+     "object": "https://axius-sdc.com/library/provgov/clinical-document-preliminary-entered-in-error"
+    },
+    {
+     "predicate": "http://www.w3.org/2004/02/skos/core#exactMatch",
+     "object": "http://hl7.org/fhir/composition-status"
+    }
+   ]
+  }
+ ]
+}

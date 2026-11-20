@@ -25,7 +25,7 @@ from sdcreader.mcp import Server, ToolError, source_properties
 
 from . import __version__
 from .engine import Engine
-from .mapping import MappingError, load_mapping
+from .mapping import RM_NAMES, MappingError, load_mapping
 from .service import ServiceError, describe, fidelity, fidelity_text, map_one, targets
 
 SERVER_NAME = "sdc-mapper"
@@ -83,7 +83,10 @@ TOOLS = [
     },
     {
         "name": "check_mapping",
-        "description": "Validate a mapping file against the mapping schema, and, given a model, check it is bound to that model's current schema.",
+        "description": ("Validate a mapping file against the mapping schema, and, given a model, check it is bound to that model's "
+                        "current schema. Since 4.4.0 also reports whether the mapping reads the record's reference-model parts "
+                        "beyond the data cluster (reference_model) and the reference-model element names its rules use, and, "
+                        "given a model, which identifiers its rules name that the model does not have."),
         "inputSchema": {"type": "object", "properties": {"mapping": MAPPING, **source_properties()},
                         "required": ["mapping"], "additionalProperties": False},
     },
@@ -136,13 +139,17 @@ def _handle_check_mapping(args: dict[str, Any]) -> Any:
     except (MappingError, OSError) as e:
         return {"ok": False, "error": str(e)}
     out = {"ok": True, "id": m.id, "version": m.version, "sha256": m.sha256, "model": m.model_ct_id,
-           "target": f"{m.target_name} {m.target_version}", "rules": len(m.rules)}
+           "target": f"{m.target_name} {m.target_version}", "rules": len(m.rules),
+           "reference_model": m.reference_model, "reference_model_names": m.names_reference_model}
     source = {k: args[k] for k in ("ct_id", "directory") if args.get(k)}
     if source:
         pkg, model = _engine().packages.one(source)
         if (m.model_ct_id, m.model_schema_sha256) != (model.ct_id, pkg.sha256):
             out.update(ok=False, error=f"bound to {m.model_ct_id} schema {m.model_schema_sha256[:12]}; "
                                        f"the model is {model.ct_id} schema {pkg.sha256[:12]}")
+        else:
+            named = {n for r in m.rules for n in (r.component, r.cluster, *r.within) if n and n not in RM_NAMES}
+            out["unknown_identifiers"] = sorted(named - set(model.components))
     return out
 
 
