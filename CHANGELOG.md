@@ -3,7 +3,7 @@
 Versions carry the leading 4 of the SDC4 reference model: an addition is a minor version, a fix a patch, and the
 major changes only when the reference model does.
 
-## Unreleased (planned 4.5.0)
+## 4.5.0 (2026-11-21)
 
 Chained records: a parent record and the records chained to it, mapped into one output (SDCHealth library decision
 12). The first target is sdc-gdr2fhir, which writes a Laboratory Report and its Order Information, Service Request,
