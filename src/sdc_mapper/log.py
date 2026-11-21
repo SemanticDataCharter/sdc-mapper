@@ -92,15 +92,16 @@ class Log:
                 "mappings": set()})
             t["calls"] += 1
             t["outcomes"][e.get("outcome", "?")] += 1
-            for k, n in (e.get("counts") or {}).items():
-                if k == "exceptional":
-                    t["exceptional"].update(n)
-                else:
-                    t["values"][k] += n
-            if e.get("model", {}).get("ct_id"):
-                t["models"].add(e["model"]["ct_id"])
-            if (e.get("mapping") or {}).get("sha256"):
-                t["mappings"].add(e["mapping"]["sha256"])
+            for r in (e, *e.get("chained", ())):     # a chain: the parent's anchors, then each chained record's
+                for k, n in (r.get("counts") or {}).items():
+                    if k == "exceptional":
+                        t["exceptional"].update(n)
+                    else:
+                        t["values"][k] += n
+                if (r.get("model") or {}).get("ct_id"):
+                    t["models"].add(r["model"]["ct_id"])
+                if (r.get("mapping") or {}).get("sha256"):
+                    t["mappings"].add(r["mapping"]["sha256"])
         return {"days": days, "calls": len(rows),
                 "targets": {k: {"calls": v["calls"], "outcomes": dict(v["outcomes"]), "values": {k: n for k, n in v["values"].items() if n},
                                 "exceptional": {k: n for k, n in v["exceptional"].items() if n},

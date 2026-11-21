@@ -3,6 +3,48 @@
 Versions carry the leading 4 of the SDC4 reference model: an addition is a minor version, a fix a patch, and the
 major changes only when the reference model does.
 
+## Unreleased (planned 4.5.0)
+
+Chained records: a parent record and the records chained to it, mapped into one output (SDCHealth library decision
+12). The first target is sdc-gdr2fhir, which writes a Laboratory Report and its Order Information, Service Request,
+Laboratory Observations and Specimen as one FHIR document Bundle. Until now, its chain mapping could be reached only
+from Python. Design: sdc-gdr2fhir `docs/chained-records.md`.
+
+- **`Engine.map_chain(parent_xml, children_xml, mapper, parent_mapping, child_mappings, directories, ct_ids, caller)`
+  -> `ChainCallResult`.** It runs in this order:
+  1. It finds each record's model and checks the record's mapping against it. A failure is `error`, naming the
+     record: 0 is the parent, 1 the first child.
+  2. It gates every record against its own schema. If any record is refused, the whole chain is `refused`, with every
+     refused record's errors and its position, and nothing is written.
+  3. It reads and resolves each record, and calls the target's `map_chain`.
+  4. It builds each record's coverage report with `build_report`.
+
+  The outcome is `valid_with_ev` if any record needed the gate's recovery. A target without `map_chain`, a
+  `MappingError` from it (a child that does not belong), and a record it did not account for are each `error`.
+- **`ChainCallResult`** is `CallResult` with `records` in place of `report`. Each is a `RecordReport` (instance id,
+  ct_id, the gate's outcome, its `CoverageReport`), the parent's first and the children in the order given.
+- **The mapper contract** gains two optional methods. A target that implements neither works as before.
+  - `map_chain(parent, children) -> ChainMapResult` (`files`, and one `MapResult` per record). `ChainMapper` is its
+    protocol and `maps_chains(mapper)` tells whether a mapper has it.
+  - `mapping_for(ct_id)`, the mapping file a target ships for a model, used for a chained record given without one.
+- **The log:** a chain is one entry. The parent's anchors stay where one record's are, and each chained record's
+  sha256, model, mapping, counts and Exceptional Values are under `chained`, in order. An error may name its `record`.
+  The log-entry schema adds both as optional properties, so every earlier entry still validates. `log summary` counts
+  every record of a chain.
+- **CLI:** `sdc-map map-chain TARGET PARENT --child MAPPING RECORD ...`, or `--chain chain.json`.
+  - `--packages DIR` finds each record's model package by the identifier the record names.
+  - It writes the output and `report.json`, the per-record reports in order.
+  - Exit codes are as for `map`.
+- **MCP:** a `map_chain` tool beside `map_record`.
+  - Input: the parent and `children` (each a record path, with an optional mapping, ct_id or directory), or a `chain`
+    manifest, and optional `packages`.
+  - Output: the outcome, the output, and each record's report and sentence.
+  - Limits: at most 100 chained records per call. As for `map_record`, a file over 200 kB needs an output directory.
+- A single record maps, reports and logs byte for byte as in 4.4.0.
+- Tests: the engine, CLI and MCP with a chain-mapping reference CSV mapper. With sdc-gdr2fhir at hand, a parity
+  check: the engine, CLI and MCP give the same Bundles and reports as sdc-gdr2fhir's `chain.map_files` on its five
+  sample chains.
+
 ## 4.4.0 (2026-11-20)
 
 Mapping rules reach the reference-model parts beyond the data cluster (sdcreader 4.5.0, now required): a record's

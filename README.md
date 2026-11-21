@@ -19,6 +19,8 @@ D.24A), `sdc-gdr2omop` (OMOP CDM 5.4), `sdc-gdr2fhir` (HL7 FHIR R4) and `sdc-gdr
 ```
 sdc-map targets
 sdc-map map TARGET record.xml --package DIR [--mapping m.yaml] [-o out/]
+sdc-map map-chain TARGET parent.xml [--mapping m.yaml] --child MAPPING child.xml ... [--packages DIR] [-o out/]
+sdc-map map-chain TARGET --chain chain.json [--packages DIR] [-o out/]
 sdc-map fidelity record.xml --package DIR          # every installed target, side by side, per Exceptional Value
 sdc-map check-mapping m.yaml --package DIR
 sdc-map log summary --days 7 | sdc-map log verify
@@ -27,6 +29,21 @@ sdc-mapper [--log-dir DIR] [--host URL]            # MCP stdio server (also sdc-
 
 A model is a package directory (`dm-<ct>.jsonld`, `dm-<ct>.xsd`) or a published model's `--ct-id`, fetched from the
 SDCStudio host; with neither, the record's own root names it. Exit status: 0 mapped, 1 refused, 2 error.
+
+## Chained records
+
+A parent record and the records chained to it (SDCHealth library decision 12: a child carries the parent's Record
+Identifier in its Parent Record Identifier, or is named by another record of the chain) map into one output, for a
+target that maps chains: `Engine.map_chain`, `sdc-map map-chain`, and the MCP tool `map_chain`. Each record is checked
+against its mapping, gated against its own model and reported as one record is; if any record is refused, the chain
+is refused with every refused record's errors and its position (record 0 is the parent), and nothing is written. The
+output is written with `report.json`: each record's coverage report, the parent's first. The chain is one log entry:
+the parent's anchors, and each child's under `chained`.
+
+A child's `MAPPING` may be `-` for the mapping the target ships for its model. `--packages` names directories of model
+packages, found by the identifier each record names. A manifest (`chain.json`) names `parent` and `children` (each
+with `file` and `ct_id`, and optionally `mapping` and `directory`); its relative paths are resolved against its own
+directory, then its ancestors.
 
 Also listed on [mcprush](https://mcprush.com/semanticdatacharter/sdc-mapper-mcp).
 
@@ -125,10 +142,20 @@ one `ValueOutcome` for every value it was given, never writes a rejected value a
 ubl = "sdc_gdr2ubl:UBLMapper"
 ```
 
+Two methods are optional:
+- `map_chain(parent, children) -> ChainMapResult`, for a target that writes a parent record and its chained records as
+  one output. `parent` and each child are (resolved record, mapping) pairs. It returns the files and one `MapResult`
+  per record, the parent's first, each accounting for its own record's values. A target without it maps one record at
+  a time, and a chain for it is an error.
+- `mapping_for(ct_id) -> path | None`, the mapping file the target ships for a model. `map-chain` and `map_chain` use
+  it for a record given without a mapping.
+
 ## Tests
 
 `python -m pytest tests -q` (offline). The fixture is a HalvorsenDemo Credit Note record and its model's package;
-the reference mapper in `tests/refmapper.py` is a flat CSV used only to exercise the contract.
+the reference mapper in `tests/refmapper.py` is a flat CSV used only to exercise the contract. When sdc-gdr2fhir is
+installed and its repository is beside this one (or at `$SDC_GDR2FHIR_REPO`), `tests/test_chain.py` also checks that
+`map_chain` gives the same Bundles and reports as sdc-gdr2fhir's own `chain.map_files` on its five sample chains.
 
 ## License
 
