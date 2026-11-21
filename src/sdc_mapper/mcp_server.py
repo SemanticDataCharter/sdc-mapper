@@ -10,7 +10,7 @@ plain sentence of what the target could not say, so the agent can act at once: c
 person, or hold the record. Every call is appended to the hash-chained log, whatever the outcome; `log_summary`
 reads it back and `verify_log` walks the chain.
 
-Tools: `list_targets`, `map_record`, `check_mapping`, `fidelity`, `log_summary`, `verify_log`. No tool takes a URL:
+Tools: `list_targets`, `map_record`, `map_chain`, `check_mapping`, `fidelity`, `log_summary`, `verify_log`. No tool takes a URL:
 records, packages and mapping files are paths on disk, a model is fetched only by its identifier from the host fixed
 when the server starts, and the log directory is fixed at start too.
 """
@@ -26,7 +26,8 @@ from sdcreader.mcp import Server, ToolError, source_properties
 from . import __version__
 from .engine import Engine
 from .mapping import RM_NAMES, MappingError, load_mapping
-from .service import ServiceError, describe, fidelity, fidelity_text, map_one, targets
+from .service import (ServiceError, describe, describe_chain, fidelity, fidelity_text, load_chain, map_chain, map_one,
+                      targets)
 
 SERVER_NAME = "sdc-mapper"
 ISSUES = "https://github.com/SemanticDataCharter/sdc-mapper/issues"
@@ -34,6 +35,9 @@ ISSUES = "https://github.com/SemanticDataCharter/sdc-mapper/issues"
 _ENGINE: Engine | None = None
 _HOST = DEFAULT_HOST
 _LOG_DIR = os.environ.get("SDC_MAPPER_LOG_DIR", "sdc-mapper-log")
+#: The most records a chain may chain to its parent in one call, and the most bytes returned inline in all.
+MAX_CHILDREN = 100
+INLINE_TOTAL = 2_000_000
 
 
 def _engine() -> Engine:
@@ -78,6 +82,39 @@ TOOLS = [
                 "output_dir": {"type": "string", "description": "Write the outputs and coverage.json here instead of returning them inline."},
             },
             "required": ["target", "record"],
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "map_chain",
+        "description": (
+            "Since 4.5.0. Map a parent record and the records chained to it (SDCHealth library decision 12: each child "
+            "carries the parent's Record Identifier, or is named by another record of the chain) into one output, for a "
+            "target that maps chains (sdc-gdr2fhir: one FHIR document Bundle). Every record is validated against its own "
+            "model first; if any is refused, the chain is refused with each refused record's errors and its position "
+            "(record 0 is the parent, 1 the first child), and nothing is written. Returns the outcome, the output "
+            "(inline, or written to output_dir with report.json), each record's coverage report and sentence, the parent's "
+            "first, and the hash of the one log entry. A record without a mapping takes the one the target ships for its "
+            "model, if any. Give parent and children, or chain (a chain.json manifest)."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "target": {"type": "string", "description": "A mapper name, as list_targets gives it."},
+                "parent": {"type": "string", "description": "Path to the parent record's XML file on disk."},
+                "mapping": {"type": "string", "description": "Path to the parent's mapping file (YAML)."},
+                **source_properties(),
+                "children": {"type": "array", "maxItems": MAX_CHILDREN, "description": "The chained records, in order.",
+                             "items": {"type": "object", "required": ["record"], "additionalProperties": False,
+                                       "properties": {"record": RECORD,
+                                                      "mapping": {"type": "string", "description": "Path to this record's mapping file (YAML)."},
+                                                      **source_properties()}}},
+                "chain": {"type": "string", "description": "Path to a chain manifest (chain.json: parent, children with file, ct_id, and optionally mapping and directory) in place of parent and children."},
+                "packages": {"type": "array", "items": {"type": "string"},
+                             "description": "Directories of model packages on disk, searched by the identifier each record names (the directory itself or one level down)."},
+                "output_dir": {"type": "string", "description": "Write the output and report.json here instead of returning them inline."},
+            },
+            "required": ["target"],
             "additionalProperties": False,
         },
     },
@@ -133,6 +170,43 @@ def _handle_map_record(args: dict[str, Any]) -> Any:
         raise ToolError(str(e)) from e
 
 
+def _handle_map_chain(args: dict[str, Any]) -> Any:
+    target = _str(args, "target", True)
+    chain, parent = _str(args, "chain"), _str(args, "parent")
+    if bool(chain) == bool(parent):
+        raise ToolError("Give `parent` (with `children`) or `chain`, not both.")
+    packages = args.get("packages") or []
+    if not isinstance(packages, list) or not all(isinstance(d, str) and d for d in packages):
+        raise ToolError("`packages` must be a list of directory paths.")
+    try:
+        if chain:
+            if any(args.get(k) for k in ("children", "mapping", "ct_id", "directory")):
+                raise ToolError("`chain` names the records and their mappings; give no parent, children, mapping, "
+                                "ct_id or directory with it.")
+            spec = load_chain(chain)
+        else:
+            children = args.get("children") or []
+            if not isinstance(children, list) or not all(isinstance(c, dict) for c in children):
+                raise ToolError("`children` must be a list of objects, each with `record`.")
+            spec = {"parent": parent, "parent_mapping": _str(args, "mapping"), "parent_directory": _str(args, "directory"),
+                    "parent_ct_id": _str(args, "ct_id"),
+                    "children": [{"record": _str(c, "record", True), "mapping": _str(c, "mapping"),
+                                  "directory": _str(c, "directory"), "ct_id": _str(c, "ct_id")} for c in children]}
+        if not spec["children"]:
+            raise ToolError("A chain needs at least one chained record; use map_record for one record.")
+        if len(spec["children"]) > MAX_CHILDREN:
+            raise ToolError(f"A chain may have at most {MAX_CHILDREN} chained records per call.")
+        result = map_chain(_engine(), target, spec["parent"], spec["children"], parent_mapping=spec["parent_mapping"],
+                           parent_directory=spec["parent_directory"], parent_ct_id=spec["parent_ct_id"],
+                           packages=packages, caller="mcp")
+        output_dir = _str(args, "output_dir")
+        if not output_dir and sum(len(d) for d in result.files.values()) > INLINE_TOTAL:
+            raise ServiceError(f"the outputs are over {INLINE_TOTAL} bytes in all; give an output directory")
+        return describe_chain(result, output_dir=output_dir)
+    except (ServiceError, MappingError, OSError) as e:
+        raise ToolError(str(e)) from e
+
+
 def _handle_check_mapping(args: dict[str, Any]) -> Any:
     try:
         m = load_mapping(_str(args, "mapping", True))
@@ -175,7 +249,8 @@ def _handle_verify_log(args: dict[str, Any]) -> Any:
 
 
 TOOL_HANDLERS = {
-    "list_targets": _handle_list_targets, "map_record": _handle_map_record, "check_mapping": _handle_check_mapping,
+    "list_targets": _handle_list_targets, "map_record": _handle_map_record, "map_chain": _handle_map_chain,
+    "check_mapping": _handle_check_mapping,
     "fidelity": _handle_fidelity, "log_summary": _handle_log_summary, "verify_log": _handle_verify_log,
 }
 
@@ -183,7 +258,8 @@ TOOL_HANDLERS = {
 def _server() -> Server:
     return Server(name=SERVER_NAME, version=__version__, tools=TOOLS, handlers=TOOL_HANDLERS, issues_url=ISSUES,
                   instructions=(
-                      "Map Governed Data Records to other formats, one record per call. Every value is reported: how "
+                      "Map Governed Data Records to other formats, one record per call (map_record), or a parent record and the "
+                      "records chained to it in one output (map_chain). Every value is reported: how "
                       "it reached the target, or that the target cannot hold it; and for every Exceptional Value "
                       "(why a value is missing or unusable), whether the target could say it too. Pass the "
                       "`could_not_say` sentence on to the person when it reports a loss. Records, packages and mapping "

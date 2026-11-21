@@ -4,6 +4,10 @@ A mapper receives a `ResolvedRecord` and an optional `Mapping`, and returns a `M
 `ValueOutcome` for every value it was given. It never writes a rejected value as a value, and it accounts for every
 value: the core checks that, and fails the call if any value is missing from the outcomes.
 
+A mapper that can map chained records (a parent record and the records chained to it, written as one output) also
+has `map_chain(parent, children) -> ChainMapResult`: `parent` and each child a (ResolvedRecord, Mapping) pair. It is
+optional: a mapper without it maps one record at a time, and the core refuses a chain for it (`maps_chains`).
+
 Mappers register under the entry-point group `sdc_mapper.targets`.
 """
 from __future__ import annotations
@@ -58,6 +62,15 @@ class MapResult:
     cannot_hold: list[str] = field(default_factory=list)   # what the target structurally cannot hold for any record
 
 
+@dataclass
+class ChainMapResult:
+    """What a mapper's `map_chain` returns: the files of the one output, and one MapResult per record, the parent's
+    first and the children in the order given. Each MapResult accounts for its own record's values (the core builds
+    each record's coverage report from it, as for one record); each usually holds the same files."""
+    files: dict[str, bytes]
+    results: list[MapResult]
+
+
 @runtime_checkable
 class Mapper(Protocol):
     name: str                     # "edifact", "omop", ...
@@ -68,6 +81,19 @@ class Mapper(Protocol):
     ev_table: dict[str, EVRule]   # one rule per ISO 21090 code
 
     def map(self, record: ResolvedRecord, mapping: Mapping | None) -> MapResult: ...
+
+
+@runtime_checkable
+class ChainMapper(Mapper, Protocol):
+    """A mapper that also maps a parent record and its chained records into one output."""
+
+    def map_chain(self, parent: tuple[ResolvedRecord, Mapping | None],
+                  children: list[tuple[ResolvedRecord, Mapping | None]]) -> ChainMapResult: ...
+
+
+def maps_chains(mapper) -> bool:
+    """Whether a mapper implements the optional `map_chain`."""
+    return callable(getattr(mapper, "map_chain", None))
 
 
 def installed_mappers() -> dict[str, type]:

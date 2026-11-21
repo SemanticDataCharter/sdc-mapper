@@ -9,9 +9,9 @@ Outbound only. Each target format is its own package (`sdc-gdr2<target>`) regist
 `sdc_mapper.targets`.
 """
 from .contract import (CARRIED, DECLARED, DEGRADED, ENTRY_POINT_GROUP, EV_CARRIED, EV_CLASSES, LOOKUP, LOST,
-                       NOT_REPRESENTABLE, PRESERVED, VALUE_CLASSES, EVRule, MapResult, Mapper, ValueOutcome,
-                       installed_mappers)
-from .engine import ERROR, CallResult, Engine
+                       NOT_REPRESENTABLE, PRESERVED, VALUE_CLASSES, ChainMapper, ChainMapResult, EVRule, MapResult, Mapper,
+                       ValueOutcome, installed_mappers, maps_chains)
+from .engine import ERROR, CallResult, ChainCallResult, Engine, RecordReport
 from .gate import REFUSED, VALID, VALID_WITH_EV, Gate, GateResult, Recovery
 from .log import Log, entry_hash
 from .mapping import Mapping, MappingError, Rule, load_mapping
@@ -22,7 +22,7 @@ from .resolve import Exceptional, ResolvedRecord, ResolvedValue, Units, resolve
 
 __version__ = "4.4.0"
 __all__ = [
-    "Engine", "CallResult", "Gate", "GateResult", "Recovery", "Log", "entry_hash", "Mapping", "MappingError", "Rule",
+    "Engine", "CallResult", "ChainCallResult", "RecordReport", "ChainMapResult", "ChainMapper", "maps_chains", "Gate", "GateResult", "Recovery", "Log", "entry_hash", "Mapping", "MappingError", "Rule",
     "load_mapping", "place", "Placement", "ClusterPlacement", "Extra", "JOIN", "join_depth", "LOOKUP_TRANSFORMS", "CodeRef", "code_of",
     "bound_code", "linked_code", "model_codes", "CONCEPT_LINKS", "EXACT_MATCH", "SUBJECT", "LOINC", "SNOMED_CT", "NCIT", "text_of", "CoverageReport", "IncompleteMapping", "build_report", "ResolvedRecord", "ResolvedValue",
     "Exceptional", "Units", "resolve", "Mapper", "MapResult", "ValueOutcome", "EVRule", "installed_mappers",
